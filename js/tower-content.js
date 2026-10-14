@@ -119,6 +119,16 @@ const TOWER_TIERS = [
         </div>
       </div>
       <div class="dcard">
+        <p class="dcard-label">Bioinformatics</p>
+        <div class="chips chips-flush">
+          <span class="chip">Sequence alignment</span>
+          <span class="chip">BLAST</span>
+          <span class="chip">Phylogenetic trees</span>
+        </div>
+        <p class="dcard-sub">Needleman-Wunsch and Smith-Waterman in R:
+          <a href="https://github.com/jiaxinlyu-a11y/sequence-alignment-r" target="_blank" rel="noopener">code on GitHub &#8599;</a></p>
+      </div>
+      <div class="dcard">
         <p class="dcard-label">Practice</p>
         <div class="chips chips-flush">
           <span class="chip">Product management</span>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scatter Plot Digitiser — Lyu Jiaxin</title>
+  <meta name="description" content="A small Python tool I built to read data values back from a published scatter plot, with a built-in check of how accurate the values are." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/case.css" />
+</head>
+<body class="case" data-page="projects">
+
+  <header id="site-nav"></header>
+
+  <div class="case-wrap">
+    <main class="case-main">
+<p class="cs-eyebrow">Case study &middot; Self-built tool</p>
+<h1>Scatter Plot Digitiser</h1>
+<p class="cs-lead"><b>I built this small Python tool to read data back from a published scatter plot.</b> It finds the points, converts them to real values using the axes, and checks its own accuracy against known values.</p>
+
+<section class="cs-sec" id="s1" data-sum="Values were only in a figure"><h2><span class="n">01</span>Why I built it</h2>
+<p class="cs-say">For my KETO-CTA re-analysis, one variable was not in the released data. It only existed as a published scatter plot. To use it, I needed to turn the picture back into numbers, and to know how far to trust them.</p>
+</section>
+
+<section class="cs-sec" id="s2" data-sum="Seven steps from image to CSV"><h2><span class="n">02</span>How it works</h2>
+<p class="cs-say">You upload the plot image, crop it to the plotting area and click four tick marks, entering their real values. The tool detects black circular points and converts their positions into data values. Missed points can be added and false detections deleted by hand.</p>
+<figure><p class="cs-fig-t">Figure 1 &middot; From image to values</p><svg viewBox="0 0 760 222" role="img" aria-label="Seven steps from a plot image to a matched CSV and a diagnostic plot"><defs><marker id="a1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="mk"/></marker></defs><rect x="0.0" y="10" width="170" height="62" rx="11" class="bn"/><text x="85.0" y="37.0" text-anchor="middle" font-size="13" font-weight="700">1 &middot; Upload</text><text x="85.0" y="56.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">PNG, JPG, TIF or BMP</text><rect x="196.7" y="10" width="170" height="62" rx="11" class="bn"/><text x="281.7" y="37.0" text-anchor="middle" font-size="13" font-weight="700">2 &middot; Crop</text><text x="281.7" y="56.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">plot area only</text><rect x="393.3" y="10" width="170" height="62" rx="11" class="bn"/><text x="478.3" y="37.0" text-anchor="middle" font-size="13" font-weight="700">3 &middot; Calibrate</text><text x="478.3" y="56.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">click 4 ticks, enter values</text><rect x="590.0" y="10" width="170" height="62" rx="11" class="bf"/><text x="675.0" y="37.0" text-anchor="middle" font-size="13" font-weight="700" class="tw">4 &middot; Detect</text><text x="675.0" y="56.0" text-anchor="middle" font-size="11.5" font-weight="400" class="ta">black circular points</text><rect x="0.0" y="114" width="170" height="62" rx="11" class="bn"/><text x="85.0" y="141.0" text-anchor="middle" font-size="13" font-weight="700">5 &middot; Fix by hand</text><text x="85.0" y="160.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">add missed, delete false</text><rect x="196.7" y="114" width="170" height="62" rx="11" class="bn"/><text x="281.7" y="141.0" text-anchor="middle" font-size="13" font-weight="700">6 &middot; Match</text><text x="281.7" y="160.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">to known values</text><rect x="393.3" y="114" width="170" height="62" rx="11" class="bn"/><text x="478.3" y="141.0" text-anchor="middle" font-size="13" font-weight="700">7 &middot; Export</text><text x="478.3" y="160.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">CSV and diagnostic plot</text><line x1="172.0" y1="41" x2="193.7" y2="41" marker-end="url(#a1)" class="ar"/><line x1="368.7" y1="41" x2="390.3" y2="41" marker-end="url(#a1)" class="ar"/><line x1="565.3" y1="41" x2="587.0" y2="41" marker-end="url(#a1)" class="ar"/><line x1="172.0" y1="145" x2="193.7" y2="145" marker-end="url(#a1)" class="ar"/><line x1="368.7" y1="145" x2="390.3" y2="145" marker-end="url(#a1)" class="ar"/><path d="M675.0 74 V90 H85.0 V111" marker-end="url(#a1)" class="ar"/><rect x="593.3" y="0" width="0" height="0"/><text x="0.0" y="216.0" text-anchor="start" font-size="11.5" font-weight="400" class="tm">Runs locally as a Streamlit app. Detection settings (threshold, area, circularity) can be adjusted at step 4.</text></svg><figcaption><b>Every point is traceable.</b> Each exported point records whether it was detected automatically or added by hand. Matching to known values uses an assignment algorithm that minimises the total error.</figcaption></figure>
+</section>
+
+<section class="cs-sec" id="s3" data-sum="Accuracy, measured"><h2><span class="n">03</span>How accurate is it?</h2>
+<p class="cs-say">The tool is built to be checked. When known values are available, it matches each digitised point to one and reports the error, and a diagnostic plot lets you confirm the matches by eye. Most points are found automatically. Where points overlap, I add the rest by hand: 6 on the baseline plot and 12 on the change plot. Each one is flagged as manual in the export.</p>
+<figure><p class="cs-fig-t">Figure 2 &middot; Error against known values</p><svg viewBox="0 0 760 178" role="img" aria-label="For each of the two plots: points matched, how many were automatic or by hand, and the mean error for each group"><text x="0.0" y="12.0" text-anchor="start" font-size="10.5" font-weight="700" class="cap">PLOT</text><text x="250.0" y="34.0" text-anchor="middle" font-size="10" font-weight="700" class="cap">MATCHED</text><text x="340.0" y="34.0" text-anchor="middle" font-size="10" font-weight="700" class="cap">AUTOMATIC</text><text x="426.0" y="34.0" text-anchor="middle" font-size="10" font-weight="700" class="cap">BY HAND</text><text x="606.0" y="12.0" text-anchor="middle" font-size="10.5" font-weight="700" class="cap">MEAN ERROR, MM&sup3;</text><text x="520.0" y="34.0" text-anchor="middle" font-size="10" font-weight="700" class="cap">AUTOMATIC</text><text x="606.0" y="34.0" text-anchor="middle" font-size="10" font-weight="700" class="cap">BY HAND</text><text x="692.0" y="34.0" text-anchor="middle" font-size="10" font-weight="700" class="cap">ALL</text><line x1="472" y1="18" x2="740" y2="18" class="grid"/><rect x="0" y="44" width="760" height="50" rx="11" class="bn"/><text x="16.0" y="75.0" text-anchor="start" font-size="13" font-weight="700">Baseline plot</text><text x="250.0" y="75.0" text-anchor="middle" font-size="16" font-weight="700">100</text><text x="340.0" y="75.0" text-anchor="middle" font-size="16" font-weight="700">94</text><text x="426.0" y="75.0" text-anchor="middle" font-size="16" font-weight="700">6</text><text x="520.0" y="75.0" text-anchor="middle" font-size="16" font-weight="700">0.24</text><text x="606.0" y="75.0" text-anchor="middle" font-size="16" font-weight="700">0.30</text><text x="692.0" y="75.0" text-anchor="middle" font-size="16" font-weight="700">0.25</text><rect x="0" y="104" width="760" height="50" rx="11" class="bn"/><text x="16.0" y="135.0" text-anchor="start" font-size="13" font-weight="700">Change plot</text><text x="250.0" y="135.0" text-anchor="middle" font-size="16" font-weight="700">99 of 100</text><text x="340.0" y="135.0" text-anchor="middle" font-size="16" font-weight="700">87</text><text x="426.0" y="135.0" text-anchor="middle" font-size="16" font-weight="700">12</text><text x="520.0" y="135.0" text-anchor="middle" font-size="16" font-weight="700">0.11</text><text x="606.0" y="135.0" text-anchor="middle" font-size="16" font-weight="700">0.30</text><text x="692.0" y="135.0" text-anchor="middle" font-size="16" font-weight="700">0.13</text><text x="0.0" y="172.0" text-anchor="start" font-size="11.5" font-weight="400" class="tm">One point on the change plot could not be located.</text></svg><figcaption>Hand-added points were somewhat less accurate than automatic ones, but their mean error stayed at 0.30 mm&sup3; on both plots, against an axis range of about 160 mm&sup3;. The largest error, 1.07 mm&sup3; on the baseline plot, was flagged by the tool for review.</figcaption></figure>
+<p class="cs-skills-l">Skills shown</p><div class="cs-skills"><span>Tool building</span><span>Python</span><span>Image processing (OpenCV)</span><span>Validation against known values</span></div>
+<div class="cs-links"><a href="https://github.com/jiaxinlyu-a11y/scatter_plot_digitiser" target="_blank" rel="noopener">Code on GitHub &nearr;</a><a href="keto-cta.html">See it used in KETO-CTA &rarr;</a></div></section>
+    </main>
+
+    <aside class="case-aside">
+      <div class="case-rail">
+        <div class="cs-card">
+          <p class="cs-label">At a glance</p>
+          <dl class="cs-kv">
+            <dt>Type</dt><dd>Personal analysis tool</dd>
+            <dt>Tools</dt><dd>Python &middot; Streamlit</dd>
+            <dt>Use</dt><dd>Reading values from plots</dd>
+          </dl>
+        </div>
+        <div class="cs-card plain cs-toc-card">
+          <p class="cs-label">On this page</p>
+          <ul class="cs-toc" id="toc"><li data-t="s1"><a href="#s1"><span class="n">01</span>Why I built it</a><div class="sum"></div></li><li data-t="s2"><a href="#s2"><span class="n">02</span>How it works</a><div class="sum"></div></li><li data-t="s3"><a href="#s3"><span class="n">03</span>How accurate is it?</a><div class="sum"></div></li></ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script>const BASE_PATH = "../";</script>
+  <script src="../js/partials.js"></script>
+  <script>
+    // Scroll-synced "On this page": the active section is the last one whose
+    // top has passed 35% of the viewport; its one-line summary shows under it.
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll("#toc li"));
+      var secs = items.map(function (li) { return document.getElementById(li.dataset.t); });
+      function update() {
+        var cur = 0, y = window.innerHeight * 0.35;
+        secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= y) cur = i; });
+        items.forEach(function (li, i) {
+          li.classList.toggle("on", i === cur);
+          li.querySelector(".sum").textContent = i === cur ? secs[i].dataset.sum : "";
+        });
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

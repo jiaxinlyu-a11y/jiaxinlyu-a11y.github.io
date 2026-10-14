@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JobPilot — Lyu Jiaxin</title>
+  <meta name="description" content="Why I built a web app to run my own job search, which problems it solves, and how it worked out." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/case.css" />
+</head>
+<body class="case" data-page="projects">
+
+  <header id="site-nav"></header>
+
+  <div class="case-wrap">
+    <main class="case-main">
+<p class="cs-eyebrow">Case study &middot; Self-built tool</p>
+<h1>JobPilot</h1>
+<p class="cs-lead"><b>I built JobPilot to fix the problems I kept running into while job hunting.</b> It is a web app for one user: every job I save, where it stands, and what each interview taught me, in one place.</p>
+
+<section class="cs-sec" id="s1" data-sum="A search that gets messy fast"><h2><span class="n">01</span>Why I built it</h2>
+<p class="cs-say">A job search starts tidy and gets messy fast. Postings sit in bookmarks, notes and email threads. After a few weeks it is hard to say which jobs I applied to, which are waiting for an answer, and when anything happened. Interview lessons are the first thing to go: a week later I could not say what I was asked or what I should do better next time. Each of these is small, but together they cost time and let good lessons slip away.</p>
+</section>
+
+<section class="cs-sec" id="s2" data-sum="One feature per problem"><h2><span class="n">02</span>What I built for each problem</h2>
+<p class="cs-say">I designed the app around those problems, one feature for each. A job moves through six statuses: Saved, Planned, Applied, Interview, Offer and Rejected. Each status is a dated milestone, and I can backdate one if I forgot to record it. Interview rounds are kept apart from status, so a job can have several rounds without the status getting messy.</p>
+<figure><p class="cs-fig-t">Figure 1 &middot; From problem to feature</p><svg viewBox="0 0 760 296" role="img" aria-label="Five common job-search problems and the feature of the app that answers each one"><defs><marker id="a1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="mk"/></marker></defs><text x="0.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">THE PROBLEM</text><text x="410.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">WHAT THE APP DOES</text><rect x="0" y="24" width="350" height="44" rx="10" class="bn"/><text x="14.0" y="51.0" text-anchor="start" font-size="12.5" font-weight="600">Jobs scattered across notes, mail and sheets</text><path d="M358 46 H402" marker-end="url(#a1)" class="ar"/><rect x="410" y="24" width="350" height="44" rx="10" class="bw"/><text x="424.0" y="51.0" text-anchor="start" font-size="12.5" font-weight="600">One list of every job: search, filter, sort</text><rect x="0" y="78" width="350" height="44" rx="10" class="bn"/><text x="14.0" y="105.0" text-anchor="start" font-size="12.5" font-weight="600">Losing track of where each job stands</text><path d="M358 100 H402" marker-end="url(#a1)" class="ar"/><rect x="410" y="78" width="350" height="44" rx="10" class="bw"/><text x="424.0" y="105.0" text-anchor="start" font-size="12.5" font-weight="600">Six statuses, each a dated milestone</text><rect x="0" y="132" width="350" height="44" rx="10" class="bn"/><text x="14.0" y="159.0" text-anchor="start" font-size="12.5" font-weight="600">No view of the whole search at a glance</text><path d="M358 154 H402" marker-end="url(#a1)" class="ar"/><rect x="410" y="132" width="350" height="44" rx="10" class="bw"/><text x="424.0" y="159.0" text-anchor="start" font-size="12.5" font-weight="600">A status board and a timeline with a today line</text><rect x="0" y="186" width="350" height="44" rx="10" class="bn"/><text x="14.0" y="213.0" text-anchor="start" font-size="12.5" font-weight="600">Interview lessons forgotten afterwards</text><path d="M358 208 H402" marker-end="url(#a1)" class="ar"/><rect x="410" y="186" width="350" height="44" rx="10" class="bw"/><text x="424.0" y="213.0" text-anchor="start" font-size="12.5" font-weight="600">Rounds with a four-prompt reflection template</text><rect x="0" y="240" width="350" height="44" rx="10" class="bn"/><text x="14.0" y="267.0" text-anchor="start" font-size="12.5" font-weight="600">Retyping my own details and files each time</text><path d="M358 262 H402" marker-end="url(#a1)" class="ar"/><rect x="410" y="240" width="350" height="44" rx="10" class="bw"/><text x="424.0" y="267.0" text-anchor="start" font-size="12.5" font-weight="600">A profile with experience, links and private files</text></svg><figcaption><b>Reflection is part of the record.</b> Each round starts from a template with four prompts: questions asked, notes, problems noticed and an improvement plan.</figcaption></figure>
+<p class="cs-say">The dashboard shows the same data two ways: a board grouped by current status, with a badge for the latest interview round, and a timeline with one row per job, coloured status bars and a marker for every round.</p>
+<figure><p class="cs-fig-t">Figure 2 &middot; The dashboard views</p><svg viewBox="0 0 760 276" role="img" aria-label="Schematic of the dashboard: a board grouped by status, and a timeline with status bars, interview round markers and a today line"><text x="0.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">JOB BOARD, BY CURRENT STATUS</text><text x="404.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">JOB TIMELINE, ONE ROW PER JOB</text><rect x="0" y="24" width="84" height="206" rx="10" class="bk"/><rect x="0" y="24" width="84" height="30" rx="10" class="st-a"/><text x="10.0" y="44.0" text-anchor="start" font-size="11.5" font-weight="700">Applied</text><rect x="6" y="64" width="72" height="50" rx="8" class="bw"/><text x="14.0" y="83.0" text-anchor="start" font-size="11.5" font-weight="700">Job A</text><rect x="92" y="24" width="84" height="206" rx="10" class="bk"/><rect x="92" y="24" width="84" height="30" rx="10" class="st-i"/><text x="102.0" y="44.0" text-anchor="start" font-size="11.5" font-weight="700">Interview</text><rect x="98" y="64" width="72" height="50" rx="8" class="bw"/><text x="106.0" y="83.0" text-anchor="start" font-size="11.5" font-weight="700">Job B</text><text x="106.0" y="102.0" text-anchor="start" font-size="10.5" font-weight="400" class="tm">R1</text><rect x="98" y="122" width="72" height="50" rx="8" class="bw"/><text x="106.0" y="141.0" text-anchor="start" font-size="11.5" font-weight="700">Job C</text><text x="106.0" y="160.0" text-anchor="start" font-size="10.5" font-weight="400" class="tm">No rounds</text><rect x="184" y="24" width="84" height="206" rx="10" class="bk"/><rect x="184" y="24" width="84" height="30" rx="10" class="st-o"/><text x="194.0" y="44.0" text-anchor="start" font-size="11.5" font-weight="700">Offer</text><rect x="190" y="64" width="72" height="50" rx="8" class="bw"/><text x="198.0" y="83.0" text-anchor="start" font-size="11.5" font-weight="700">Job D</text><rect x="276" y="24" width="84" height="206" rx="10" class="bk"/><rect x="276" y="24" width="84" height="30" rx="10" class="st-r"/><text x="286.0" y="44.0" text-anchor="start" font-size="11.5" font-weight="700">Rejected</text><rect x="404" y="24" width="356" height="206" rx="10" class="bk"/><text x="414.0" y="60.0" text-anchor="start" font-size="11.5" font-weight="700">Job A</text><line x1="466" y1="78" x2="754" y2="78" class="grid"/><rect x="470.0" y="46" width="84.0" height="24" rx="6" class="st-s"/><text x="512.0" y="63.0" text-anchor="middle" font-size="10.5" font-weight="700">S</text><rect x="554.0" y="46" width="70.0" height="24" rx="6" class="st-a"/><text x="589.0" y="63.0" text-anchor="middle" font-size="10.5" font-weight="700">A</text><text x="414.0" y="106.0" text-anchor="start" font-size="11.5" font-weight="700">Job B</text><line x1="466" y1="124" x2="754" y2="124" class="grid"/><rect x="498.0" y="92" width="70.0" height="24" rx="6" class="st-a"/><text x="533.0" y="109.0" text-anchor="middle" font-size="10.5" font-weight="700">A</text><rect x="568.0" y="92" width="126.0" height="24" rx="6" class="st-i"/><text x="631.0" y="109.0" text-anchor="middle" font-size="10.5" font-weight="700">I</text><circle cx="596.0" cy="122" r="0" /><rect x="585.0" y="86" width="22" height="13" rx="4" class="bw"/><text x="596.0" y="96.0" text-anchor="middle" font-size="9.5" font-weight="700">R1</text><circle cx="643.6" cy="122" r="0" /><rect x="632.6" y="86" width="22" height="13" rx="4" class="bw"/><text x="643.6" y="96.0" text-anchor="middle" font-size="9.5" font-weight="700">R2</text><text x="414.0" y="152.0" text-anchor="start" font-size="11.5" font-weight="700">Job C</text><line x1="466" y1="170" x2="754" y2="170" class="grid"/><rect x="512.0" y="138" width="56.0" height="24" rx="6" class="st-p"/><text x="540.0" y="155.0" text-anchor="middle" font-size="10.5" font-weight="700">P</text><rect x="568.0" y="138" width="84.0" height="24" rx="6" class="st-i"/><text x="610.0" y="155.0" text-anchor="middle" font-size="10.5" font-weight="700">I</text><text x="414.0" y="198.0" text-anchor="start" font-size="11.5" font-weight="700">Job D</text><line x1="466" y1="216" x2="754" y2="216" class="grid"/><rect x="470.0" y="184" width="98.0" height="24" rx="6" class="st-a"/><text x="519.0" y="201.0" text-anchor="middle" font-size="10.5" font-weight="700">A</text><rect x="568.0" y="184" width="140.0" height="24" rx="6" class="st-o"/><text x="638.0" y="201.0" text-anchor="middle" font-size="10.5" font-weight="700">O</text><line x1="610.0" y1="30" x2="610.0" y2="224" class="dash"/><text x="610.0" y="242.0" text-anchor="middle" font-size="10.5" font-weight="400" class="tm">today</text><rect x="404" y="256" width="11" height="11" rx="3" class="st-s"/><text x="419.0" y="266.0" text-anchor="start" font-size="10" font-weight="400" class="tm">Saved</text><rect x="454" y="256" width="11" height="11" rx="3" class="st-p"/><text x="469.0" y="266.0" text-anchor="start" font-size="10" font-weight="400" class="tm">Planned</text><rect x="512" y="256" width="11" height="11" rx="3" class="st-a"/><text x="527.0" y="266.0" text-anchor="start" font-size="10" font-weight="400" class="tm">Applied</text><rect x="566" y="256" width="11" height="11" rx="3" class="st-i"/><text x="581.0" y="266.0" text-anchor="start" font-size="10" font-weight="400" class="tm">Interview</text><rect x="634" y="256" width="11" height="11" rx="3" class="st-o"/><text x="649.0" y="266.0" text-anchor="start" font-size="10" font-weight="400" class="tm">Offer</text><rect x="686" y="256" width="11" height="11" rx="3" class="st-r"/><text x="701.0" y="266.0" text-anchor="start" font-size="10" font-weight="400" class="tm">Rejected</text></svg><figcaption>A schematic with sample jobs, drawn after the real dashboard.</figcaption></figure>
+</section>
+
+<section class="cs-sec" id="s3" data-sum="Each problem has an answer"><h2><span class="n">03</span>Did it solve the problem?</h2>
+<p class="cs-say">Yes. Judging by what the app does, every problem in section 01 now has a direct answer. A new job takes one entry. Its history is a set of dated milestones, so &ldquo;when did I apply?&rdquo; is a lookup instead of a guess. The board and the timeline show the whole search without opening each job. Every interview round has its reflection form attached, so what I was asked and what to improve stay with the job. The profile holds my details and files, so I do not retype them for each application.</p>
+<p class="cs-say">It is built with Next.js and TypeScript on Supabase: login, a PostgreSQL database with row-level security so only the owner can read the data, and private file storage. The current status comes from the latest dated milestone and is kept in sync by database triggers.</p>
+<p class="cs-skills-l">Skills shown</p><div class="cs-skills"><span>Turning a real problem into a product</span><span>Full-stack development</span><span>Database design (PostgreSQL)</span><span>Next.js &middot; TypeScript &middot; Supabase</span></div>
+<div class="cs-links"><a href="https://github.com/jiaxinlyu-a11y/job-pilot" target="_blank" rel="noopener">Code on GitHub &nearr;</a></div></section>
+    </main>
+
+    <aside class="case-aside">
+      <div class="case-rail">
+        <div class="cs-card">
+          <p class="cs-label">At a glance</p>
+          <dl class="cs-kv">
+            <dt>Type</dt><dd>Personal job-search tool</dd>
+            <dt>Tools</dt><dd>Next.js &middot; Supabase</dd>
+            <dt>Use</dt><dd>Job tracking</dd>
+          </dl>
+        </div>
+        <div class="cs-card plain cs-toc-card">
+          <p class="cs-label">On this page</p>
+          <ul class="cs-toc" id="toc"><li data-t="s1"><a href="#s1"><span class="n">01</span>Why I built it</a><div class="sum"></div></li><li data-t="s2"><a href="#s2"><span class="n">02</span>What I built for each problem</a><div class="sum"></div></li><li data-t="s3"><a href="#s3"><span class="n">03</span>Did it solve the problem?</a><div class="sum"></div></li></ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script>const BASE_PATH = "../";</script>
+  <script src="../js/partials.js"></script>
+  <script>
+    // Scroll-synced "On this page": the active section is the last one whose
+    // top has passed 35% of the viewport; its one-line summary shows under it.
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll("#toc li"));
+      var secs = items.map(function (li) { return document.getElementById(li.dataset.t); });
+      function update() {
+        var cur = 0, y = window.innerHeight * 0.35;
+        secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= y) cur = i; });
+        items.forEach(function (li, i) {
+          li.classList.toggle("on", i === cur);
+          li.querySelector(".sum").textContent = i === cur ? secs[i].dataset.sum : "";
+        });
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

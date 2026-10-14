@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Short Story Expander — Lyu Jiaxin</title>
+  <meta name="description" content="How I distilled my reading experience into writing skills, and built a local workbench that uses them to write short stories with an AI assistant in about a third of the time." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/case.css" />
+</head>
+<body class="case" data-page="projects">
+
+  <header id="site-nav"></header>
+
+  <div class="case-wrap">
+    <main class="case-main">
+<p class="cs-eyebrow">Case study &middot; AI tool</p>
+<h1>Short Story Expander</h1>
+<p class="cs-lead"><b>I distilled my own reading experience into writing skills, then built a local workbench around them.</b> I decide the plot; the skills and the tool turn each planned beat into prose with an AI assistant, and a short story now takes about a third of the time.</p>
+
+<section class="cs-sec" id="s1" data-sum="Six hours a story"><h2><span class="n">01</span>The problem</h2>
+<p class="cs-say">A short story used to take me about six hours to write, and often some small edits afterwards. I wanted to keep deciding the plot myself and speed up the part that turns each planned beat into prose, without losing my own taste.</p>
+</section>
+
+<section class="cs-sec" id="s2" data-sum="Skills first, then the tool"><h2><span class="n">02</span>Building the skills, then the tool</h2>
+<p class="cs-say">The skills came first. They come from my own reading experience and from good stories I studied closely. I wrote down what makes them work as rules, then refined every rule slowly: write, read the result as a reader would, adjust one point, and write again.</p>
+<figure><p class="cs-fig-t">Figure 1 &middot; Where the skills come from</p><svg viewBox="0 0 760 270" role="img" aria-label="Skills come from my reading and from good stories, are distilled into five rule sets, and refined by writing, reading and adjusting one point at a time"><defs><marker id="a2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="mk"/></marker></defs><text x="0.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">WHERE THEY COME FROM</text><text x="270.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">FIVE SETS OF RULES</text><text x="540.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">HOW I REFINE THEM</text><rect x="0" y="24" width="220" height="62" rx="11" class="bn"/><text x="110.0" y="50.0" text-anchor="middle" font-size="12.5" font-weight="700">My reading experience</text><text x="110.0" y="69.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">what works and what jars</text><rect x="0" y="98" width="220" height="62" rx="11" class="bn"/><text x="110.0" y="124.0" text-anchor="middle" font-size="12.5" font-weight="700">Good stories</text><text x="110.0" y="143.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">studied for what makes them work</text><rect x="270" y="24.0" width="220" height="24" rx="8" class="bw"/><text x="380.0" y="40.5" text-anchor="middle" font-size="12" font-weight="700">Base rules</text><rect x="270" y="51.5" width="220" height="24" rx="8" class="bw"/><text x="380.0" y="68.0" text-anchor="middle" font-size="12" font-weight="700">Climax rules</text><rect x="270" y="79.0" width="220" height="24" rx="8" class="bw"/><text x="380.0" y="95.5" text-anchor="middle" font-size="12" font-weight="700">Style skills</text><rect x="270" y="106.5" width="220" height="24" rx="8" class="bw"/><text x="380.0" y="123.0" text-anchor="middle" font-size="12" font-weight="700">Compression</text><rect x="270" y="134.0" width="220" height="24" rx="8" class="bw"/><text x="380.0" y="150.5" text-anchor="middle" font-size="12" font-weight="700">Dialogue check</text><rect x="540" y="24" width="220" height="136" rx="11" class="bf"/><text x="650.0" y="52.0" text-anchor="middle" font-size="13" font-weight="700" class="tw">Write</text><text x="650.0" y="72.0" text-anchor="middle" font-size="12" font-weight="400" class="ta">Read it as a reader</text><text x="650.0" y="100.0" text-anchor="middle" font-size="13" font-weight="700" class="tw">Adjust one point</text><text x="650.0" y="120.0" text-anchor="middle" font-size="12" font-weight="400" class="ta">Write again</text><text x="650.0" y="146.0" text-anchor="middle" font-size="11.5" font-weight="400" class="ta">repeat, point by point</text><line x1="224" y1="55" x2="266" y2="85" marker-end="url(#a2)" class="ar"/><line x1="224" y1="129" x2="266" y2="105" marker-end="url(#a2)" class="ar"/><line x1="494" y1="92" x2="536" y2="92" marker-end="url(#a2)" class="ar"/><rect x="0" y="180" width="760" height="82" rx="11" class="bk"/><text x="16.0" y="204.0" text-anchor="start" font-size="12.5" font-weight="700">Examples of what the rules say</text><text x="16.0" y="225.0" text-anchor="start" font-size="11.5" font-weight="400" class="tm">Base: pacing is judged by information density, not word count; every scene must move the plot, shape a character,</text><text x="16.0" y="242.0" text-anchor="start" font-size="11.5" font-weight="400" class="tm">change a relationship or give key information. Climax: face-to-face conflict, with earlier evidence and promises paid off.</text></svg><figcaption><b>Five sets of rules.</b> Base rules apply to every story, climax rules to marked scenes, style skills are chosen per story, a compression pass cuts repeated scenes, and a dialogue check looks for AI-sounding lines (still experimental).</figcaption></figure>
+<p class="cs-say">The workbench then applies the skills. For a chosen block, it builds one task file from my rules, the characters and the previous passage, and the AI assistant writes inside that block only.</p>
+<figure><p class="cs-fig-t">Figure 2 &middot; From my instruction to finished text</p><svg viewBox="0 0 760 262" role="img" aria-label="Workflow: I decide the plot, the tool prepares a task file, the AI writes only inside the target block"><defs><marker id="a1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="mk"/></marker></defs><text x="0.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">YOU DECIDE</text><text x="270.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">THE TOOL PREPARES</text><text x="540.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">THE AI WRITES</text><rect x="0" y="24" width="220" height="62" rx="11" class="bf"/><text x="110.0" y="50.0" text-anchor="middle" font-size="13" font-weight="700" class="tw">The plot</text><text x="110.0" y="69.0" text-anchor="middle" font-size="11.5" font-weight="400" class="ta">one instruction per block</text><rect x="0" y="98" width="220" height="62" rx="11" class="bn"/><text x="110.0" y="124.0" text-anchor="middle" font-size="12.5" font-weight="700">Characters and setup</text><text x="110.0" y="143.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">plus my own writing skills</text><rect x="270" y="24" width="220" height="136" rx="11" class="bw"/><text x="380.0" y="50.0" text-anchor="middle" font-size="13" font-weight="700">One task file</text><text x="380.0" y="73.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">base writing rules</text><text x="380.0" y="91.5" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">climax rules (if marked)</text><text x="380.0" y="110.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">chosen style skills</text><text x="380.0" y="128.5" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">characters and setup</text><text x="380.0" y="147.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">the previous passage</text><rect x="540" y="24" width="220" height="62" rx="11" class="bn"/><text x="650.0" y="50.0" text-anchor="middle" font-size="12.5" font-weight="700">Codex in VS Code</text><text x="650.0" y="69.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">no AI API in the app</text><rect x="540" y="98" width="220" height="62" rx="11" class="bf"/><text x="650.0" y="124.0" text-anchor="middle" font-size="12.5" font-weight="700" class="tw">Text lands in one block</text><text x="650.0" y="143.0" text-anchor="middle" font-size="11.5" font-weight="400" class="ta">fenced by markers</text><line x1="224" y1="55" x2="266" y2="85" marker-end="url(#a1)" class="ar"/><line x1="224" y1="129" x2="266" y2="110" marker-end="url(#a1)" class="ar"/><line x1="494" y1="55" x2="536" y2="55" marker-end="url(#a1)" class="ar"/><path d="M650 88 V96" marker-end="url(#a1)" class="ar"/><rect x="0" y="180" width="760" height="76" rx="11" class="bk"/><text x="16.0" y="205.0" text-anchor="start" font-size="12.5" font-weight="700">Then, in a separate step</text><text x="16.0" y="226.0" text-anchor="start" font-size="12" font-weight="400" class="tm">Compress the whole text to cut repeated scenes. Original and compressed version sit side by side,</text><text x="16.0" y="244.0" text-anchor="start" font-size="12" font-weight="400" class="tm">and the original is replaced only after I confirm.</text></svg><figcaption><b>The text is protected.</b> The story lives in a Markdown file with a marker around each block. Saving checks that the markers are intact, and the app warns me if the file was changed elsewhere.</figcaption></figure>
+</section>
+
+<section class="cs-sec" id="s3" data-sum="Less time, readers respond"><h2><span class="n">03</span>What it changed</h2>
+<p class="cs-say">A story that took about six hours now takes about two, with small edits afterwards. Both times are my own estimates. The numbers below are for a story written this way and published on Fanqie Novel.</p>
+<figure><p class="cs-fig-t">Figure 3 &middot; Time saved, and reader response</p><svg viewBox="0 0 760 214" role="img" aria-label="Time per short story before and now, and impressions and reads for a story written this way"><text x="0.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">TIME PER SHORT STORY (MY OWN ESTIMATE)</text><text x="108.0" y="43.0" text-anchor="end" font-size="13" font-weight="600">Before</text><rect x="120" y="24" width="336" height="26" rx="6" class="s2"/><text x="130.0" y="42.0" text-anchor="start" font-size="12.5" font-weight="700" class="tw">about 6 hours</text><text x="108.0" y="81.0" text-anchor="end" font-size="13" font-weight="600">Now</text><rect x="120" y="62" width="112" height="26" rx="6" class="s1d"/><text x="242.0" y="80.0" text-anchor="start" font-size="12.5" font-weight="700">about 2 hours, then small edits</text><text x="0.0" y="122.0" text-anchor="start" font-size="11" font-weight="700" class="cap">FROM THE FANQIE AUTHOR DASHBOARD, UP TO 13 OCT, FOR A STORY WRITTEN THIS WAY</text><text x="108.0" y="157.0" text-anchor="end" font-size="13" font-weight="600">Impressions</text><rect x="120" y="136" width="560.0" height="30" rx="6" class="s1d"/><text x="130.0" y="156.0" text-anchor="start" font-size="12.5" font-weight="700" class="tw">65,231</text><text x="108.0" y="197.0" text-anchor="end" font-size="13" font-weight="600">Reads</text><rect x="120" y="176" width="305.3" height="30" rx="6" class="s1"/><text x="130.0" y="196.0" text-anchor="start" font-size="12.5" font-weight="700" class="tw">35,565</text></svg><figcaption><b>Over half of the impressions turned into reads.</b> The story reached readers and they kept reading.</figcaption></figure>
+<p class="cs-skills-l">Skills shown</p><div class="cs-skills"><span>Prompt and skill design</span><span>Human-AI workflow design</span><span>Full-stack development</span><span>Next.js &middot; TypeScript &middot; SQLite</span></div>
+</section>
+    </main>
+
+    <aside class="case-aside">
+      <div class="case-rail">
+        <div class="cs-card">
+          <p class="cs-label">At a glance</p>
+          <dl class="cs-kv">
+            <dt>Type</dt><dd>Personal writing tool</dd>
+            <dt>Tools</dt><dd>Next.js &middot; SQLite</dd>
+            <dt>Use</dt><dd>Short-story writing</dd>
+          </dl>
+        </div>
+        <div class="cs-card plain cs-toc-card">
+          <p class="cs-label">On this page</p>
+          <ul class="cs-toc" id="toc"><li data-t="s1"><a href="#s1"><span class="n">01</span>The problem</a><div class="sum"></div></li><li data-t="s2"><a href="#s2"><span class="n">02</span>Building the skills, then the tool</a><div class="sum"></div></li><li data-t="s3"><a href="#s3"><span class="n">03</span>What it changed</a><div class="sum"></div></li></ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script>const BASE_PATH = "../";</script>
+  <script src="../js/partials.js"></script>
+  <script>
+    // Scroll-synced "On this page": the active section is the last one whose
+    // top has passed 35% of the viewport; its one-line summary shows under it.
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll("#toc li"));
+      var secs = items.map(function (li) { return document.getElementById(li.dataset.t); });
+      function update() {
+        var cur = 0, y = window.innerHeight * 0.35;
+        secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= y) cur = i; });
+        items.forEach(function (li, i) {
+          li.classList.toggle("on", i === cur);
+          li.querySelector(".sum").textContent = i === cur ? secs[i].dataset.sum : "";
+        });
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

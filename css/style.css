@@ -1,0 +1,1274 @@
+/* ==========================================================================
+   Design tokens
+   ========================================================================== */
+:root {
+  --color-bg: #ffffff;
+  --color-bg-elevated: #f5f8fc;
+  --color-text: #12202e;
+  --color-text-muted: #5c6b7a;
+  --color-border: #d7e2ec;
+  --color-accent: #1d4e89;      /* clean blue — primary */
+  --color-accent-2: #3d6fa8;    /* lighter blue — secondary accent */
+  --color-accent-soft: #e8f1fb;
+  --color-rail: #b9cbe0;
+  --color-tier-grad-top: #f6fafd;
+  --color-tier-grad-bottom: #cfe1f2;
+  --color-tier-label-muted: color-mix(in srgb, var(--color-accent) 55%, var(--color-bg) 45%);
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+  --radius: 8px;
+  --max-width: 880px;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0d1420;
+    --color-bg-elevated: #121b29;
+    --color-text: #e7edf4;
+    --color-text-muted: #93a3b5;
+    --color-border: #233244;
+    --color-accent: #6fa8e0;
+    --color-accent-2: #5589c2;
+    --color-accent-soft: #16233a;
+    --color-rail: #2c3e54;
+    --color-tier-grad-top: #1c2c44;
+    --color-tier-grad-bottom: #0e1826;
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Desktop paging between the three full-height sections (cover / tower
+   detail / featured work) is JS-driven now — see the page-nav script in
+   index.html. CSS scroll-snap alone couldn't get this right: `mandatory`
+   fought every short/fast flick (felt stiff), and `proximity` swung too far
+   the other way, letting a scroll land half-between two sections (easy to
+   overshoot past tower-detail into featured-work). The JS paginator always
+   jumps a full section at a time, with no in-between state possible. Touch
+   devices don't fire `wheel` events, so the paginator doesn't apply there —
+   mobile keeps this light CSS snap instead, a good fit for swipe gestures. */
+@media (max-width: 780px) {
+  html { scroll-snap-type: y proximity; }
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 var(--space-2);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: 2.4rem; }
+h2 { font-size: 1.7rem; margin-top: var(--space-5); }
+h3 { font-size: 1.25rem; }
+
+p { margin: 0 0 var(--space-2); }
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+a:hover { border-bottom-color: currentColor; }
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+
+img { max-width: 100%; display: block; border-radius: var(--radius); }
+
+ul.plain { list-style: none; padding: 0; margin: 0; }
+
+/* ==========================================================================
+   Nav
+   ========================================================================== */
+#site-nav {
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  z-index: 10;
+}
+
+#site-nav .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-2);
+}
+
+#site-nav .brand {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-text);
+  border-bottom: none;
+  margin-right: auto;
+}
+#site-nav .brand .brand-sub {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+@media (max-width: 640px) {
+  #site-nav .brand .brand-sub { display: none; }
+}
+
+#site-nav nav ul {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* Always-visible "get my resume" CTA, next to the nav links. Opens the PDF
+   in a new tab — browsers show their own viewer with a download button
+   built in, so this covers "preview" and "download" without extra UI. */
+.nav-resume-btn {
+  flex: 0 0 auto;
+  background: var(--color-accent);
+  color: #fff;
+  border-bottom: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius);
+}
+.nav-resume-btn:hover { opacity: 0.9; }
+
+/* "← Home" — shown on every page except the home page (see renderNav in
+   js/partials.js). Sits left of the greeting. */
+.nav-back {
+  flex: 0 0 auto;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+}
+.nav-back:hover { color: var(--color-accent); border-color: var(--color-accent); }
+/* On wide screens the content column is centred with empty margins either
+   side, so pin the link to the far left of the bar instead. Narrower than
+   this the margins are too small, and it stays in the normal flow. */
+/* Phones: keep the bar on one line — arrow only, tighter gaps. */
+@media (max-width: 600px) {
+  #site-nav .container { gap: var(--space-2); }
+  #site-nav .brand { font-size: 0.95rem; }
+  .nav-back-text { display: none; }
+}
+@media (max-width: 380px) {
+  #site-nav .brand { font-size: 0.85rem; }
+}
+
+@media (min-width: 1100px) {
+  .nav-back {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+#site-nav nav a {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+#site-nav nav a[aria-current="page"] {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Cover — the first full screen of the single-page site. Tower large,
+   filling the height, edge to edge; identity text beside it. Nothing about
+   what comes after this is decided yet — this section stands alone.
+   ========================================================================== */
+.cover {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  scroll-snap-align: start;
+}
+
+.cover-layout {
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.cover-text {
+  flex: 0 0 auto;
+  max-width: 380px;
+}
+
+/* Resume now lives up here with the intro text instead of in a top nav. */
+.cover-resume-btn {
+  display: inline-block;
+  background: var(--color-accent);
+  color: #fff;
+  border-bottom: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius);
+  margin-bottom: var(--space-3);
+}
+.cover-resume-btn:hover { opacity: 0.9; }
+
+.cover-text .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: var(--color-accent-2);
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+
+.cover-text h1 { font-size: 2.6rem; }
+
+.cover-text .lede {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+}
+
+/* Target roles under the name: a small label, then the list. */
+.cover-text .roles-label {
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-1);
+}
+.cover-text .cover-roles {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--color-accent);
+}
+.cover-text .cover-roles li::marker { color: var(--color-accent-2); }
+
+/* Small, light contact lines under the roles: label + clickable link. */
+.cover-text .cover-contact {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  font-size: .88rem;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+.cover-text .cover-contact span {
+  display: inline-block;
+  min-width: 4.6rem;
+  opacity: .8;
+}
+.cover-text .cover-contact a {
+  color: var(--color-tier-label-muted);
+  text-decoration: none;
+}
+.cover-text .cover-contact a:hover,
+.cover-text .cover-contact a:focus-visible {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.cover-stage-wrap {
+  flex: 1 1 auto;
+  height: 94vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.cover-stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pagoda-mount-cover { height: 100%; width: 100%; }
+
+/* A soft, faint glow sits over the tower with "CLICK HERE" inside it —
+   translucent enough that the tower's own lines still show through, so it
+   reads as part of the illustration rather than a UI button stuck on top
+   of it. The label is deliberately allowed to run wider than the tower
+   itself (nowrap, no width cap) since bigger read better here. */
+.cover-enter-hint {
+  position: absolute;
+  top: 50%;
+  /* The tower image itself is nudged right by the same 3.5% in pagoda.js
+     (COVER_NUDGE_X) — matching it here keeps "CLICK HERE" and its glow
+     centered ON the tower, not just centered in the empty frame. */
+  left: calc(50% + 3.5%);
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 72%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.cover-enter-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(29, 78, 137, 0.28) 0%,
+    rgba(29, 78, 137, 0.15) 50%,
+    rgba(29, 78, 137, 0) 72%
+  );
+  animation: cover-shadow-breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes cover-shadow-breathe {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.cover-enter-label {
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 800;
+  font-size: 3.6rem;
+  color: var(--color-accent);
+  opacity: 0.82;
+  animation: cover-label-breathe 2.6s ease-in-out infinite;
+}
+.cover-enter-hint:hover .cover-enter-label { opacity: 1; }
+
+/* Same rhythm as the shadow's breathe, so text and glow pulse together —
+   kept as its own keyframe (scale only) so it doesn't fight the opacity
+   set above / the hover state. */
+@keyframes cover-label-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@media (max-width: 780px) {
+  .cover-enter-label { font-size: 2.3rem; }
+}
+
+/* Clicking the tower (or the hint) fades it, then the page scrolls past
+   the cover. Just the feel of "entering" for now — what's actually
+   revealed next is still to be decided. (The fade rule itself lives with
+   the other .pagoda-img rules above, since a CSS transform here couldn't
+   override the inline transform pagoda.js sets on the image.) */
+.cover-stage-wrap.is-zooming .cover-enter-hint { opacity: 0; transition: opacity 0.25s ease; }
+
+@media (max-width: 780px) {
+  .cover { height: auto; min-height: 100vh; }
+  .cover-layout {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: var(--space-3);
+    padding-top: calc(var(--space-5) + var(--space-3));
+    padding-bottom: var(--space-4);
+  }
+  .cover-text { max-width: 90vw; }
+  .cover-stage-wrap { height: auto; width: 100%; }
+  .cover-stage { height: 46vh; width: 100%; }
+}
+
+/* ==========================================================================
+   Tower detail — floor by floor. Left: the whole tower, always fully
+   visible, with the current floor highlighted in place. Right: that
+   floor's text, scrollable on its own. The tower's total height is FIXED
+   (see .tower-column below) — the active floor pops out via `transform`
+   only, which never changes layout — so nothing here ever needs to
+   scroll, on page load or when switching floors: hovering (or clicking)
+   a tier just swaps which one is highlighted in place.
+   ========================================================================== */
+.tower-detail { padding: 0; scroll-snap-align: start; }
+.tower-detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.tower-detail-image {
+  position: relative;
+  height: 100vh;
+  /* A soft vignette instead of one flat color — brighter where the tower
+     actually sits, gently deepening toward the edges — gives the whole
+     panel some atmosphere instead of reading as a flat sketch pad. */
+  background: radial-gradient(ellipse 85% 70% at 50% 46%, var(--color-bg) 0%, var(--color-bg-elevated) 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .pagoda-mount's own `overflow: hidden` (for the cover's crop) carries
+   over here too — nothing should ever need to scroll inside this panel.
+   Two classes on the selector beats the single-class generic rule
+   regardless of source order, kept for that reason even though both now
+   agree on overflow:hidden. */
+.pagoda-mount.pagoda-mount-detail {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0 1rem;
+}
+
+/* Holds the spire + tier stack + base. pagoda.js's layoutPagodaStack sets
+   this element's width/height directly in pixels (reading the mount's
+   current on-screen size), with headroom reserved so the active tier's
+   scale-up (see .tier-slot.is-active) can overflow into it without being
+   clipped — an <img> flex item's "auto" width didn't reliably derive from
+   a percentage height via its intrinsic ratio (tested: resolved to 0), so
+   JS sizes every piece explicitly instead of relying on that. Because
+   every piece inside is sized by `height: X%` of this now-fixed-pixel box
+   (not by its own content), the column's total size is constant no matter
+   which floor is active: nothing ever reflows when switching floors, which
+   is what makes hover-to-switch stable and "never scrolls" true.
+   container-type here (not on the mount) ties tier-label font sizes to the
+   tower's own rendered width, not the wider half-page mount around it. */
+.tower-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  container-type: inline-size;
+}
+.tower-column .tower-spire,
+.tower-column .tower-base {
+  display: block;
+  width: 100%;
+  flex: 0 0 auto;
+  border-radius: 0;
+}
+/* Percentages below mirror the source artwork's own proportions (spire
+   395px / tiers 1658px total / base 41px of a 2094px tall tower) so the
+   stack reconstructs at the correct relative sizes. */
+.tower-spire { height: 18.9%; }
+.tower-base { height: 2%; }
+.tower-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 79.1%;
+  flex: 0 0 auto;
+}
+.tier-slot {
+  position: relative;
+  width: 100%;
+  height: 16.9%;
+  flex: 0 0 auto;
+  transition: transform 0.4s cubic-bezier(.3,.1,.2,1);
+}
+/* floor 0 (top, narrowest tier) and floor 5 (bottom, widest tier) are a
+   bit shorter/taller than the four evenly-sized tiers in between — see
+   pagoda.js's renderPagodaStack for the pixel measurements. */
+.tier-slot[data-floor="0"] { height: 14.6%; }
+.tier-slot[data-floor="5"] { height: 17.9%; }
+.tier-slot img { display: block; height: 100%; width: 100%; border-radius: 0; }
+
+/* The active floor: a solid-color silhouette fades in over the pale line
+   art, and the slot scales up — transform only, so it overlaps its
+   neighbors instead of pushing them (no layout change) — which is also
+   what gives it the "lifted/floating" look, helped by the drop-shadow on
+   .tier-fill. The immediate neighbors nudge away slightly (also
+   transform-only) so the active tier still reads as visibly separated
+   rather than just overlapping. Everything here is transitionable, so
+   moving .is-active between slots (see setPagodaActiveFloor) animates
+   smoothly. */
+.tier-slot.is-active {
+  transform: scale(1.16, 1.3);
+  z-index: 2;
+}
+.tier-slot.is-active + .tier-slot { transform: translateY(3.2cqw); }
+.tier-slot:has(+ .tier-slot.is-active) { transform: translateY(-3.2cqw); }
+
+/* The solid fill is a pre-baked PNG (pagoda.js's renderPagodaStack), not a
+   CSS mask — a mask-image + filter combo here was confirmed to render as
+   fully invisible on at least one real browser/GPU combination, even
+   though it worked in testing. Plain images with an opacity transition are
+   about as close to "will render everywhere" as CSS gets. Two images (not
+   one) per tier because a static raster can't read var(--color-accent) the
+   way the old mask background could — .tier-fill-dark is hidden by
+   default and swapped in under dark mode below. */
+.tier-fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  filter: drop-shadow(0 18px 28px rgba(29, 78, 137, 0.38));
+  transition: opacity 0.4s ease;
+}
+/* `.tier-slot img` (below) sets `display: block` with higher specificity
+   (class + element beats a single class) than a plain `.tier-fill-dark`
+   rule, so it would win over a plain `display: none` here regardless of
+   source order — matched back up to `.tier-slot img.tier-fill-dark` so
+   this one wins instead. (Found by testing: without this, both the light
+   and dark fill images stayed visible at once, dark painted on top.) */
+.tier-slot img.tier-fill-dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .tier-slot img.tier-fill-light { display: none; }
+  .tier-slot img.tier-fill-dark { display: block; }
+}
+.tier-slot.is-active .tier-fill { opacity: 1; }
+
+.tier-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-tier-label-muted);
+  font-size: 3.2cqw;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 3;
+  transform: translateY(2.1cqw);
+  transition: color 0.4s ease, font-size 0.4s ease, transform 0.4s ease;
+}
+.tier-slot.is-active .tier-label {
+  color: var(--color-bg);
+  font-size: 6.3cqw;
+  line-height: 1.3;
+  transform: translateY(1.2cqw);
+}
+/* Each tier is a different width (the tower tapers toward the top), so the
+   active-state font size is tuned per floor so the label never overflows
+   its own panel. floor 0 (Basic Info) is the narrowest/top tier, floor 5
+   (AI Tools) the widest/bottom — see pagoda.js's renderPagodaStack. */
+.tier-slot[data-floor="0"].is-active .tier-label { font-size: 4.3cqw; }
+.tier-slot[data-floor="1"].is-active .tier-label { font-size: 4.7cqw; }
+.tier-slot[data-floor="2"].is-active .tier-label { font-size: 5.2cqw; }
+/* "Work Experience" is the longest label of the six, so it needs extra
+   shrinkage beyond what its tier's width alone would suggest. */
+.tier-slot[data-floor="3"].is-active .tier-label { font-size: 4.35cqw; }
+.tier-slot[data-floor="5"].is-active .tier-label { font-size: 6.9cqw; }
+
+/* A single floating control, not a loose row of buttons dropped on the
+   page — the pill background gives it a clear edge and its own shadow,
+   same visual language as the resume button / nav elsewhere on the site. */
+.tower-detail-nav {
+  position: absolute;
+  top: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-bg);
+  padding: 0.5rem 0.7rem;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(18, 32, 46, 0.14);
+}
+
+.tier-nav-btn {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.tier-nav-btn:hover:not(:disabled) { background: var(--color-accent-2); }
+.tier-nav-btn:disabled { background: var(--color-border); cursor: default; box-shadow: none; }
+
+.tier-nav-dots { display: flex; flex-direction: row; gap: 0.5rem; margin: 0 var(--space-1); }
+.tier-nav-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-border);
+  cursor: pointer;
+}
+.tier-nav-dot.is-active { background: var(--color-accent); }
+
+.tower-detail-content {
+  display: flex;
+  align-items: stretch;
+}
+
+/* Right padding is deliberately wide — it keeps the cards clear of the fixed
+   page-nav arrows parked at the right edge. */
+.tower-detail-panel {
+  width: 100%;
+  padding: var(--space-5) 6.5rem var(--space-5) var(--space-4);
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+/* One short heading per floor (a few words describing it — not the floor's
+   own title, which is already on the tower), then the cards. */
+.tower-detail-panel .panel-title {
+  margin: 0 0 1.4rem;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+/* Cards. Left padding leaves room for the connector line (see
+   .tower-connector) that runs from the highlighted tier to each card. */
+.dcards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-left: 2.2rem;
+}
+.dcard {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem 1.35rem;
+  box-shadow: 0 12px 30px rgba(18, 32, 46, 0.07);
+}
+.tower-detail-panel .dcard h3 { margin: 0 0 0.15rem; font-size: 1.3rem; }
+.dcard p { margin: 0; }
+.dcard-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem !important;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-accent-2);
+}
+.dcard-label::after { content: ""; flex: 1; height: 1px; background: var(--color-border); }
+.dcard-sub { color: var(--color-text-muted); }
+.dcard-text { margin-top: 0.8rem !important; }
+.dcard-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.dcard-date {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+}
+.dcard-list { margin: 0.8rem 0 0; padding-left: 1.1rem; color: var(--color-text-muted); font-size: 0.95rem; }
+.dcard-list li { margin: 0.25rem 0; }
+.dcard .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.95rem; }
+.dcard .chips-flush { margin-top: 0; }
+.chip {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.28rem 0.75rem;
+  border-radius: 999px;
+}
+.dcard .card-link { display: inline-block; margin-top: 0.8rem; }
+.dcard-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom-width: 0;
+  color: var(--color-text);
+}
+.dcard-row:hover { color: var(--color-accent); border-top-color: var(--color-border); }
+.dcard-label + .dcard-row { border-top: none; padding-top: 0.1rem; }
+.dcard-row .k { font-size: 0.8rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.dcard-row .v { font-weight: 600; }
+.dcard-row .go { color: var(--color-accent); font-weight: 700; }
+
+/* Products / AI Tools items: a single-line row that opens on hover (or
+   keyboard focus) to show a blurb + chips, and links to the item's own page
+   on click. The expansion animates grid-template-rows 0fr -> 1fr, which
+   transitions to the content's natural height without hard-coding one. */
+.dcard.pitem {
+  display: block;
+  padding: 0;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.dcard.pitem:hover,
+.dcard.pitem:focus-visible {
+  border-color: var(--color-accent-2);
+  border-left-color: var(--color-accent);
+  box-shadow: 0 14px 34px rgba(29, 78, 137, 0.16);
+  outline: none;
+}
+.pitem-head { display: flex; align-items: center; gap: 0.9rem; padding: 1.05rem 1.4rem; }
+.pitem-tag {
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+}
+.pitem-title { flex: 1; font-weight: 700; font-size: 1.1rem; line-height: 1.3; }
+.pitem-go { flex: 0 0 auto; color: var(--color-accent); font-weight: 700; transition: transform 0.25s ease; }
+.pitem:hover .pitem-go, .pitem:focus-visible .pitem-go { transform: translateX(4px); }
+.pitem-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s ease; }
+.pitem:hover .pitem-more, .pitem:focus-visible .pitem-more { grid-template-rows: 1fr; }
+.pitem-more-inner { min-height: 0; overflow: hidden; opacity: 0; transition: opacity 0.3s ease; }
+.pitem:hover .pitem-more-inner, .pitem:focus-visible .pitem-more-inner { opacity: 1; }
+.pitem-more-inner > p {
+  margin: 0;
+  padding: 0.95rem 1.4rem 0;
+  border-top: 1px dashed var(--color-border);
+  color: var(--color-text-muted);
+}
+.pitem-more-inner > .chips { margin: 0; padding: 0.8rem 1.4rem 1.2rem; }
+
+@media (prefers-color-scheme: dark) {
+  .dcard { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35); }
+  .dcard.pitem:hover, .dcard.pitem:focus-visible { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5); }
+}
+
+/* Connector: a line from the highlighted tier out to every card, drawn by
+   index.html (drawConnector) as an SVG overlaying the whole two-column
+   layout. Fades in once the tier's own pop-out animation has settled, since
+   its starting point is measured off the tier's label. Hidden when the
+   layout stacks into one column. */
+.tower-detail-layout { position: relative; }
+.tower-connector {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+  color: var(--color-accent-2);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.tower-connector.is-on { opacity: 0.9; }
+
+@media (max-width: 780px) {
+  .tower-detail-layout { grid-template-columns: 1fr; min-height: 0; }
+  .tower-detail-image { height: 48vh; }
+  .tower-detail-panel { max-height: none; padding: var(--space-3); }
+  .dcards { padding-left: 0; }
+  .tower-connector { display: none; }
+}
+
+/* Placeholder section below the tower — not full-viewport-tall like the
+   two above it (its height just follows its content), but still a page
+   scrolling lands on: start-aligning it keeps the "snap to the next
+   section" feel consistent all the way down, not just between the first
+   two sections. */
+#featured-work { scroll-snap-align: start; }
+
+/* ==========================================================================
+   Hero (older plain text hero — still used nowhere right now, kept for
+   reference while the single-page structure is being decided)
+   ========================================================================== */
+.hero {
+  padding: var(--space-5) 0 var(--space-4);
+}
+
+.hero .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: var(--color-accent-2);
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+
+.hero p.lede {
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  max-width: 640px;
+}
+
+.hero .actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 1px solid var(--color-border);
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+.btn-primary:hover { opacity: 0.9; border-bottom: none; }
+
+.btn-secondary {
+  color: var(--color-text);
+  border-bottom: none;
+}
+
+/* ==========================================================================
+   Cards / grid
+   ========================================================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.card .tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-accent-2);
+  font-weight: 600;
+}
+
+.card h3 { margin-bottom: 0.25rem; }
+
+.card p { color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 0; }
+
+.card-link {
+  border-bottom: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: var(--space-1);
+}
+
+/* ==========================================================================
+   Section helpers
+   ========================================================================== */
+section { padding: var(--space-4) 0; }
+section + section { border-top: 1px solid var(--color-border); }
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.skills-list li {
+  background: var(--color-accent-soft);
+  color: var(--color-text);
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.meta-row {
+  display: flex;
+  gap: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.placeholder-note {
+  background: var(--color-accent-soft);
+  border: 1px dashed var(--color-accent-2);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Floors (About page) — the five sections of floor content next to the
+   sidebar pagoda. The pagoda itself is the "which floor am I on" marker,
+   so each floor card stays plain: a top border ("slab"), a soft shadow.
+   ========================================================================== */
+.floor {
+  position: relative;
+  background: var(--color-bg-elevated);
+  border-top: 3px solid var(--color-accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: var(--space-3);
+  box-shadow: 0 6px 16px rgba(18, 32, 46, 0.07);
+  margin-bottom: var(--space-3);
+}
+
+@media (prefers-color-scheme: dark) {
+  .floor { box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35); }
+}
+
+.floor .floor-label {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  color: var(--color-accent-2);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+}
+
+.floor h2 {
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+
+.floor:last-child { margin-bottom: 0; }
+
+.floor.floor-top {
+  border-top-color: var(--color-accent-2);
+}
+
+/* ==========================================================================
+   Pagoda illustration (shared SVG, used big in the hero and small in the
+   sidebar). Colors use the same tokens as the rest of the site, so it
+   follows light/dark mode automatically.
+   ========================================================================== */
+/* The tower is now a single flat artwork file (img/pagoda-tower.png),
+   positioned with a JS-computed CSS transform (see pagoda.js) rather than
+   drawn as SVG — every .pagoda-mount is the positioning context that
+   transform measures against, so it needs to be a fixed box with its
+   content clipped to it. */
+.pagoda-mount { position: relative; overflow: hidden; }
+.pagoda-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Override the site-wide `img { max-width: 100%; }` reset — this image
+     is deliberately sized to its full natural pixel dimensions in JS
+     (pagoda.js) and then scaled down with a transform; max-width:100%
+     would clamp its width to the mount's width before that transform
+     ever runs, breaking the zoom math entirely. */
+  max-width: none;
+  border-radius: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.pagoda-mount-cover .pagoda-img { transition: transform 0.6s cubic-bezier(.3,.1,.2,1), opacity 0.6s ease; }
+.cover-stage-wrap.is-zooming .pagoda-img { opacity: 0; }
+
+/* One single view: floor content scrolls on the left, the tower stays
+   fixed (sticky) on the right at full viewport height, no blank margin
+   around it. No separate "enter" page and no fly-across animation — the
+   tower just pans/zooms to whichever floor is active, whether you got
+   there by scrolling or by clicking the tower itself. This also fixes the
+   old "reversed" feeling: before, the big hero tower and the small sidebar
+   tower were two different elements zooming two different ways. Now
+   there's only one tower, so its movement always matches the floor list. */
+.pagoda-view {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  padding: 0;
+}
+
+.pagoda-floors {
+  padding: var(--space-5) var(--space-4) 50vh;
+}
+
+.pagoda-floors .floor { scroll-margin-top: 2rem; }
+
+.pagoda-intro { margin-bottom: var(--space-4); }
+.pagoda-intro .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: var(--color-accent-2);
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+.pagoda-intro .lede { color: var(--color-text-muted); font-size: 1.05rem; }
+
+/* The tower side: sticky, fills the full viewport height, no padding —
+   edge to edge, so there's no wasted blank space around it. */
+.pagoda-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--color-bg-elevated);
+  border: none;
+  padding: 0;
+}
+
+.pagoda-mount-stage { height: 100%; width: 100%; }
+
+@media (max-width: 780px) {
+  .pagoda-view { grid-template-columns: 1fr; }
+  .pagoda-stage { position: relative; order: -1; height: 46vh; }
+  .pagoda-floors { padding-top: var(--space-4); padding-bottom: var(--space-5); }
+}
+
+/* ==========================================================================
+   Project category groups (projects/index.html)
+   ========================================================================== */
+.project-category + .project-category { margin-top: var(--space-4); }
+
+.category-heading {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+#site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-4) 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+#site-footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+#site-footer a { color: var(--color-text-muted); }
+
+/* ==========================================================================
+   Contact corner — fixed, always visible, every page. Contact info should
+   never be something a visitor has to scroll down to find.
+   ========================================================================== */
+.contact-corner {
+  position: fixed;
+  left: var(--space-2);
+  bottom: var(--space-2);
+  z-index: 20;
+  display: flex;
+  gap: var(--space-2);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 6px 18px rgba(18, 32, 46, 0.1);
+  font-size: 0.82rem;
+}
+.contact-corner a { color: var(--color-text-muted); border-bottom: none; }
+.contact-corner a:hover { color: var(--color-accent); }
+
+@media (prefers-color-scheme: dark) {
+  .contact-corner { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4); }
+}
+
+/* Keep it out of the way of the floor-content reading column on the About
+   page, and don't let it collide with page content on small screens. */
+@media (max-width: 640px) {
+  .contact-corner { left: var(--space-1); bottom: var(--space-1); padding: 0.4rem 0.7rem; gap: var(--space-1); font-size: 0.75rem; }
+}
+
+/* ==========================================================================
+   Page nav — fixed up/down pair for jumping a full section at a time
+   (cover / tower detail / featured work), paired with the wheel-driven
+   paginator in index.html. Same pill language as the tower's own floor nav,
+   parked on the opposite edge (right-center) so the two never collide, and
+   away from the contact corner (bottom-left).
+   ========================================================================== */
+.page-nav {
+  position: fixed;
+  right: var(--space-2);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: var(--color-bg);
+  padding: 0.6rem 0.5rem;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(18, 32, 46, 0.14);
+}
+
+.page-nav-btn {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.page-nav-btn:hover:not(:disabled) { background: var(--color-accent-2); }
+.page-nav-btn:disabled { background: var(--color-border); cursor: default; box-shadow: none; opacity: 0.6; }
+
+@media (prefers-color-scheme: dark) {
+  .page-nav { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4); }
+}
+
+/* Touch devices scroll by swiping, which never fires `wheel` — the JS
+   paginator has nothing to bind to there, so these buttons (a desktop
+   affordance for a desktop interaction) just stay out of the way. */
+@media (max-width: 780px) {
+  .page-nav { display: none; }
+}
+
+/* ==========================================================================
+   "What I bring" — one role at a time, switched with tabs
+   ========================================================================== */
+.fit-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: var(--space-2) 0 var(--space-3);
+}
+.fit-tab {
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  cursor: pointer;
+}
+.fit-tab:hover { background: var(--color-bg-elevated); }
+.fit-tab.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  .fit-tab.is-active { color: var(--color-bg); }
+}
+.fit-panel[hidden] { display: none; }
+.fit-summary {
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+  margin-bottom: var(--space-3);
+}
+.fit-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: var(--space-2);
+  align-items: start;
+}
+.fit-side { display: flex; flex-direction: column; gap: var(--space-2); }
+.fit-box {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-3);
+}
+.fit-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent-2);
+  margin-bottom: var(--space-1);
+}
+.fit-list { list-style: none; padding: 0; margin: 0; }
+.fit-list li { margin-bottom: 0.8rem; font-size: 0.95rem; }
+.fit-list li:last-child { margin-bottom: 0; }
+.fit-list a { font-weight: 600; }
+.fit-list span {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  margin-top: 0.1rem;
+}
+.fit-all { display: inline-block; margin-top: var(--space-3); }
+@media (max-width: 780px) {
+  .fit-grid { grid-template-columns: 1fr; }
+}
+
+/* One-line hint under a floor's heading (Products / AI Tools): tells people
+   the rows open into pages. */
+.tower-detail-panel .panel-hint {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin: -0.4rem 0 var(--space-2);
+}
+.pitem-go {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  color: var(--color-tier-label-muted);
+  font-weight: 600;
+}
+.pitem:hover .pitem-go, .pitem:focus-visible .pitem-go { color: var(--color-accent); }

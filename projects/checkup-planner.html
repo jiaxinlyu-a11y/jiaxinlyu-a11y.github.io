@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Check-up Planner — Lyu Jiaxin</title>
+  <meta name="description" content="Why I built a tool that turns published screening guidelines into a personal check-up plan, how it works, and how it handles weak evidence." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/case.css" />
+</head>
+<body class="case" data-page="projects">
+
+  <header id="site-nav"></header>
+
+  <div class="case-wrap">
+    <main class="case-main">
+<p class="cs-eyebrow">Case study &middot; Product</p>
+<h1>Check-up Planner</h1>
+<p class="cs-lead"><b>I built the Check-up Planner to answer one question: which check-ups apply to me, and how sure are we?</b> You enter age, sex, habits, work environment and family history. It lists the matching items, each with an evidence level and its sources, in English or Chinese.</p>
+
+<section class="cs-sec" id="s1" data-sum="One package for everyone"><h2><span class="n">01</span>Why I built it</h2>
+<p class="cs-say">A standard hospital check-up package is much the same for everyone. The guidelines say something different: who should be screened for what depends on age, sex, smoking, drinking, work and family history. Those recommendations are spread across separate guidelines from different countries, and the numbers do not always agree. Cervical screening starts at 21 in the US guideline and at 25 in the Chinese one. I wanted one place that matches a person to the items that apply and shows where each one comes from.</p>
+</section>
+
+<section class="cs-sec" id="s2" data-sum="Rules first, then the page"><h2><span class="n">02</span>How it works</h2>
+<p class="cs-say">I wrote the rules first, as a table. Each rule is one check-up item, who it applies to, an evidence level and its sources. The page compares your answers with the table and shows the rows that match, grouped by age and sex, lifestyle, risk group and work environment, and family history. A row shows a one-line reason; opening it shows the details and the sources.</p>
+<figure><p class="cs-fig-t">Figure 1 &middot; From answers to a plan</p><svg viewBox="0 0 760 300" role="img" aria-label="How the planner works: your answers are matched against a table of 41 rules, and the matching rows form your plan in four groups"><defs><marker id="a1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" class="mk"/></marker></defs><text x="0.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">YOUR ANSWERS</text><text x="272.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">THE RULE TABLE</text><text x="520.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">YOUR PLAN</text><rect x="0" y="24" width="226" height="52" rx="10" class="bn"/><text x="12.0" y="55.0" text-anchor="start" font-size="12" font-weight="600">Age, sex, height and weight</text><rect x="0" y="88" width="226" height="52" rx="10" class="bn"/><text x="12.0" y="119.0" text-anchor="start" font-size="12" font-weight="600">Lifestyle: smoking, alcohol, sleep</text><rect x="0" y="152" width="226" height="52" rx="10" class="bn"/><text x="12.0" y="183.0" text-anchor="start" font-size="12" font-weight="600">Work environment</text><rect x="0" y="216" width="226" height="52" rx="10" class="bn"/><text x="12.0" y="247.0" text-anchor="start" font-size="12" font-weight="600">Family history (optional)</text><path d="M234 150 H264" marker-end="url(#a1)" class="ar"/><rect x="272" y="24" width="206" height="244" rx="12" class="bw"/><text x="375.0" y="56.0" text-anchor="middle" font-size="16" font-weight="700">41 rules</text><text x="375.0" y="80.0" text-anchor="middle" font-size="11.5" font-weight="400" class="tm">each rule has</text><rect x="292" y="96" width="166" height="34" rx="8" class="bn"/><text x="375.0" y="118.0" text-anchor="middle" font-size="12" font-weight="600">a check-up item</text><rect x="292" y="140" width="166" height="34" rx="8" class="bn"/><text x="375.0" y="162.0" text-anchor="middle" font-size="12" font-weight="600">who it applies to</text><rect x="292" y="184" width="166" height="34" rx="8" class="bn"/><text x="375.0" y="206.0" text-anchor="middle" font-size="12" font-weight="600">an evidence level</text><rect x="292" y="228" width="166" height="34" rx="8" class="bn"/><text x="375.0" y="250.0" text-anchor="middle" font-size="12" font-weight="600">its sources</text><path d="M486 150 H512" marker-end="url(#a1)" class="ar"/><rect x="520" y="24" width="240" height="52" rx="10" class="bw"/><text x="534.0" y="55.0" text-anchor="start" font-size="12.5" font-weight="700">By age and sex</text><rect x="520" y="88" width="240" height="52" rx="10" class="bw"/><text x="534.0" y="119.0" text-anchor="start" font-size="12.5" font-weight="700">By lifestyle</text><rect x="520" y="152" width="240" height="52" rx="10" class="bw"/><text x="534.0" y="183.0" text-anchor="start" font-size="12.5" font-weight="700">By risk group and work</text><rect x="520" y="216" width="240" height="52" rx="10" class="bw"/><text x="534.0" y="247.0" text-anchor="start" font-size="12.5" font-weight="700">By family history</text><text x="0.0" y="292.0" text-anchor="start" font-size="11" font-weight="400" class="tm">Matching rows appear with a one-line reason; opening a row shows details and sources.</text></svg><figcaption><b>The rules live apart from the page.</b> Adding a check-up item means adding one entry and its text; nothing else changes.</figcaption></figure>
+<p class="cs-say">Most items come from the US Preventive Services Task Force, with guidance from the American Cancer Society and the American College of Gastroenterology. Where Chinese guidelines exist, such as the 2023 lipid and cervical screening guidelines and the 2018 low-dose CT lung screening guideline, the item gives both sets of numbers instead of two separate lists. The workplace items come from OSHA and from the clauses of the Chinese standard GBZ 188-2025 for noise, silica dust, lead, benzene, formaldehyde, toluene and xylene, and heat.</p>
+</section>
+
+<section class="cs-sec" id="s3" data-sum="Weak evidence is labelled"><h2><span class="n">03</span>How it handles weak evidence</h2>
+<p class="cs-say">Not every useful rule has a guideline behind it. Habit-based triggers, such as frequent takeout for an H. pylori test or short sleep for blood pressure and glucose checks, are labelled Consider, and the item says in plain words that it is an inference or an association. Each rule carries one of five levels, and the level sets the number of stars next to it.</p>
+<figure><p class="cs-fig-t">Figure 2 &middot; The five evidence levels</p><svg viewBox="0 0 760 344" role="img" aria-label="Five evidence levels with what each means and an example item"><text x="0.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">LEVEL</text><text x="150.0" y="12.0" text-anchor="start" font-size="11" font-weight="700" class="cap">WHAT IT MEANS, AND AN EXAMPLE</text><rect x="0" y="24" width="132" height="48" rx="10" class="bf"/><text x="66.0" y="45.0" text-anchor="middle" font-size="13" font-weight="700" class="tw">Guideline</text><text x="66.0" y="62.0" text-anchor="middle" font-size="11" font-weight="400" class="tw">★★★★☆</text><text x="150.0" y="44.0" text-anchor="start" font-size="12.5" font-weight="600">USPSTF grade A or B, or a formal guideline</text><text x="150.0" y="63.0" text-anchor="start" font-size="12" font-weight="400" class="tm">e.g. Hepatitis C antibody, ages 18 to 79</text><line x1="0" y1="78" x2="760" y2="78" class="grid"/><rect x="0" y="84" width="132" height="48" rx="10" class="bw"/><text x="66.0" y="105.0" text-anchor="middle" font-size="13" font-weight="700">Consensus</text><text x="66.0" y="122.0" text-anchor="middle" font-size="11" font-weight="400">★★★☆☆</text><text x="150.0" y="104.0" text-anchor="start" font-size="12.5" font-weight="600">Expert consensus; strength is the share of votes</text><text x="150.0" y="123.0" text-anchor="start" font-size="12" font-weight="400" class="tm">e.g. H. pylori test when a household member is infected</text><line x1="0" y1="138" x2="760" y2="138" class="grid"/><rect x="0" y="144" width="132" height="48" rx="10" class="bw"/><text x="66.0" y="165.0" text-anchor="middle" font-size="13" font-weight="700">Regulatory</text><text x="66.0" y="182.0" text-anchor="middle" font-size="11" font-weight="400">★★★★★</text><text x="150.0" y="164.0" text-anchor="start" font-size="12.5" font-weight="600">Occupational-health regulation or mandatory standard</text><text x="150.0" y="183.0" text-anchor="start" font-size="12" font-weight="400" class="tm">e.g. Hearing test for work at 85 dB or more</text><line x1="0" y1="198" x2="760" y2="198" class="grid"/><rect x="0" y="204" width="132" height="48" rx="10" class="bwarn"/><text x="66.0" y="225.0" text-anchor="middle" font-size="13" font-weight="700">Consider</text><text x="66.0" y="242.0" text-anchor="middle" font-size="11" font-weight="400">★☆☆☆☆</text><text x="150.0" y="224.0" text-anchor="start" font-size="12.5" font-weight="600">Weak evidence, or an inference from habits</text><text x="150.0" y="243.0" text-anchor="start" font-size="12" font-weight="400" class="tm">e.g. H. pylori test for frequent takeout and shared dishes</text><line x1="0" y1="258" x2="760" y2="258" class="grid"/><rect x="0" y="264" width="132" height="48" rx="10" class="bk"/><text x="66.0" y="285.0" text-anchor="middle" font-size="13" font-weight="700">Not advised</text><text x="66.0" y="302.0" text-anchor="middle" font-size="11" font-weight="400">no stars</text><text x="150.0" y="284.0" text-anchor="start" font-size="12.5" font-weight="600">A guideline or review advises against it when there are no symptoms or known risk</text><text x="150.0" y="303.0" text-anchor="start" font-size="12" font-weight="400" class="tm">e.g. Tumor-marker blood tests, thyroid ultrasound</text><text x="0.0" y="336.0" text-anchor="start" font-size="11" font-weight="400" class="tm">Habit-based items sit at the Consider level and say so in the item text.</text></svg><figcaption><b>The label is part of the answer.</b> Stars show how strong the source is, not how serious the disease is. An item marked Consider is a suggestion, never a recommendation.</figcaption></figure>
+<p class="cs-say">The last level works the other way. Some items are common in check-up packages, but a guideline advises against them for people without symptoms or a known risk, because false alarms and overdiagnosis can do more harm than good. There are nine, among them thyroid ultrasound, tumor-marker blood tests and whole-body CT. The planner lists them in their own group at the end, with no stars, and each row says in a sentence or two who advises against it and why, since the reason is less obvious than for a recommended screening. Where the source is a review or an old statement rather than a guideline, the row says so.</p>
+<p class="cs-say">Two rules keep the tool honest. If I could not check a number against the original text, I left it out; for example, Chinese figures that I could only find second-hand were removed or marked as second-hand. And the tool recommends no supplements, only tests.</p>
+<p class="cs-say">It is plain HTML, CSS and JavaScript with no framework. Everything runs in the browser, so nothing a user enters is sent anywhere or stored, and the English and Chinese versions use the same rules.</p>
+<p class="cs-skills-l">Skills shown</p><div class="cs-skills"><span>Reading and grading clinical evidence</span><span>Screening guidelines</span><span>Turning evidence into rules</span><span>HTML &middot; CSS &middot; JavaScript</span></div>
+<div class="cs-links"><a href="https://jiaxinlyu-a11y.github.io/checkup-planner/" target="_blank" rel="noopener">Try the tool &nearr;</a><a href="https://github.com/jiaxinlyu-a11y/checkup-planner" target="_blank" rel="noopener">Code on GitHub &nearr;</a></div></section>
+    </main>
+
+    <aside class="case-aside">
+      <div class="case-rail">
+        <div class="cs-card">
+          <p class="cs-label">At a glance</p>
+          <dl class="cs-kv">
+            <dt>Type</dt><dd>Self-built product</dd>
+            <dt>Tools</dt><dd>HTML &middot; CSS &middot; JavaScript</dd>
+            <dt>Use</dt><dd>Check-up planning</dd>
+          </dl>
+        </div>
+        <div class="cs-card plain cs-toc-card">
+          <p class="cs-label">On this page</p>
+          <ul class="cs-toc" id="toc"><li data-t="s1"><a href="#s1"><span class="n">01</span>Why I built it</a><div class="sum"></div></li><li data-t="s2"><a href="#s2"><span class="n">02</span>How it works</a><div class="sum"></div></li><li data-t="s3"><a href="#s3"><span class="n">03</span>How it handles weak evidence</a><div class="sum"></div></li></ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script>const BASE_PATH = "../";</script>
+  <script src="../js/partials.js"></script>
+  <script>
+    // Scroll-synced "On this page": the active section is the last one whose
+    // top has passed 35% of the viewport; its one-line summary shows under it.
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll("#toc li"));
+      var secs = items.map(function (li) { return document.getElementById(li.dataset.t); });
+      function update() {
+        var cur = 0, y = window.innerHeight * 0.35;
+        secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= y) cur = i; });
+        items.forEach(function (li, i) {
+          li.classList.toggle("on", i === cur);
+          li.querySelector(".sum").textContent = i === cur ? secs[i].dataset.sum : "";
+        });
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

@@ -27,8 +27,7 @@ A plain HTML/CSS/JS static site. No build step, no framework, no dependencies to
 │   └── main.js                   Renders project cards from projects-data.js
 ├── img/                          Tower graphics
 ├── resume.html                   Resume page: lists the four PDF versions (opened by the Resume buttons)
-├── assets/resume-*.pdf           The four resume PDFs (biostatistician / data analyst, English / Chinese)
-├── assets/resume.pdf             Copy of the biostatistician English resume, kept so old links still work
+├── assets/resume-*.pdf           The six resume PDFs (biostatistician / data analyst / AI product manager, English / Chinese)
 ├── STATUS.md                     Version/change log — add an entry each time you make a real update
 └── README.md                     This file
 ```
@@ -49,7 +48,7 @@ then open `http://localhost:8000` in a browser.
 
 - **Basic info / education / skills / work experience** → edit the matching floor in `js/tower-content.js`.
 - **Contact links** → edit `SOCIAL_LINKS` near the top of `js/partials.js`, and the Contact card on the Basic Info floor in `js/tower-content.js`.
-- **Resume** → replace the matching PDF in `assets/` (same name): `resume-biostatistician-en.pdf`, `resume-biostatistician-zh.pdf`, `resume-data-analyst-en.pdf`, `resume-data-analyst-zh.pdf`. Also replace `resume.pdf` if you update the biostatistician English one.
+- **Resume** → replace the matching PDF in `assets/` (same name): `resume-biostatistician-en.pdf`, `resume-biostatistician-zh.pdf`, `resume-data-analyst-en.pdf`, `resume-data-analyst-zh.pdf`, `resume-ai-product-manager-en.pdf`, `resume-ai-product-manager-zh.pdf`.
 - **Add a new project / case study:**
   1. Copy `projects/pm-system.html` (or `survival-sim.html`) to `projects/your-new-project.html` as a starting template.
   2. Fill in its content. Figures are inline SVG that use the classes in `css/case.css`.

@@ -30,12 +30,10 @@ const SOCIAL_LINKS = [
   { href: "https://github.com/jiaxinlyu-a11y", label: "GitHub" },
 ];
 
-// To update the resume, replace assets/resume.pdf (keep the file name).
-// Opens in a new tab rather than forcing a download — most browsers show
-// their own PDF viewer, which already has a download button in its toolbar,
-// so this covers "preview first" and "download" without building a custom
-// viewer. See the comment on renderNav() below for the reasoning.
-const RESUME_HREF = `${ROOT}assets/resume.pdf`;
+// The Resume button opens resume.html, which lists the four PDF versions
+// (biostatistics and data analyst, each in English and Chinese). To update
+// a resume, replace the matching PDF in assets/ (keep the file name).
+const RESUME_HREF = `${ROOT}resume.html`;
 
 // No Home/About/Projects/Contact page-tab menu — this is a single page.
 // The bar at the top is the greeting and the always-there Resume button.
@@ -50,12 +48,12 @@ function renderNav() {
   const isHome = document.body.dataset.page === "home";
   const backLink = isHome
     ? ""
-    : `<a class="nav-back" href="${ROOT}index.html#products" aria-label="Back to the home page">&larr;<span class="nav-back-text"> Home</span></a>`;
+    : `<a class="nav-back" href="${ROOT}index.html${document.body.dataset.page === "resume" ? "" : "#products"}" aria-label="Back to the home page">&larr;<span class="nav-back-text"> Home</span></a>`;
 
   mount.innerHTML = `
     <div class="container">
       ${backLink}<span class="brand">${NAV_NAME}<span class="brand-sub"> &middot; ${NAV_SUB}</span></span>
-      <a class="nav-resume-btn" href="${RESUME_HREF}" target="_blank" rel="noopener">Resume</a>
+      <a class="nav-resume-btn" href="${RESUME_HREF}">Resume</a>
     </div>
   `;
 }

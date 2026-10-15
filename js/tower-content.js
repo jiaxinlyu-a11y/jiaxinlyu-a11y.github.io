@@ -223,8 +223,8 @@ const TOWER_TIERS = [
   },
   {
     title: "Built with AI",
-    headline: "Tools I built with AI",
-    hint: "Hover a tool for a short summary. Click it to open its page.",
+    headline: "Tools and videos I made with AI",
+    hint: "Hover an item for a short summary. Click it to open its page; the videos open on TapNow.",
     body: `
       <a class="dcard pitem" href="projects/short-story-expander.html">
         <div class="pitem-head">
@@ -257,6 +257,31 @@ const TOWER_TIERS = [
         <div class="pitem-more"><div class="pitem-more-inner">
           <p>Reads data values back from a published scatter plot and checks its own accuracy against known values.</p>
           <div class="chips"><span class="chip">Python</span><span class="chip">OpenCV</span><span class="chip">Streamlit</span></div>
+        </div></div>
+      </a>
+      <div class="dcard">
+        <p class="dcard-sub">The two below are videos, made with TapNow.</p>
+      </div>
+      <a class="dcard pitem" href="https://app.tapnow.ai/home/taptv/5/106488c8-7fba-4d65-aac7-d530c082bccd?order=final_score" target="_blank" rel="noopener">
+        <div class="pitem-head">
+          <span class="pitem-tag">AI video</span>
+          <span class="pitem-title">unihorse</span>
+          <span class="pitem-go">Watch &nearr;</span>
+        </div>
+        <div class="pitem-more"><div class="pitem-more-inner">
+          <p>An animated short of about one minute, made for the HappyHorse video-model contest. A foal dreams of becoming a unicorn. After it helps a bird whose head feathers stick up, its reflection in the lake shows that it now looks like one. I designed the plot, character and environment images and storyboard and refined the prompts; TapNow generated the footage.</p>
+          <div class="chips"><span class="chip">TapNow</span><span class="chip">Storyboard</span><span class="chip">Prompt design</span></div>
+        </div></div>
+      </a>
+      <a class="dcard pitem" href="https://app.tapnow.ai/home/taptv/3/6abec6cb-53b9-4280-9092-2a0ec9aab74f?order=final_score" target="_blank" rel="noopener">
+        <div class="pitem-head">
+          <span class="pitem-tag">AI video</span>
+          <span class="pitem-title">门外的牵挂</span>
+          <span class="pitem-go">Watch &nearr;</span>
+        </div>
+        <div class="pitem-more"><div class="pitem-more-inner">
+          <p>A film of about two and a half minutes for the Kaadas i60 smart lock, made as a contest entry, not a client project, and not affiliated with Kaadas. After a quarrel and leaving home, a young woman living alone fits a smart lock and notices a &ldquo;suspicious figure&rdquo; lingering at her door every day. When the truth comes out, the lock that guarded against strangers opens onto her mother&rsquo;s love. Same way of working: my plot, images, storyboard and prompts, generated in TapNow.</p>
+          <div class="chips"><span class="chip">TapNow</span><span class="chip">Storyboard</span><span class="chip">Prompt design</span></div>
         </div></div>
       </a>
     `,

@@ -278,6 +278,9 @@ ul.plain { list-style: none; padding: 0; margin: 0; }
   color: var(--color-accent);
 }
 .cover-text .cover-roles li::marker { color: var(--color-accent-2); }
+/* Roles are links into the matching tab of "What I bring". */
+.cover-text .cover-roles a { color: inherit; border-bottom: 1px solid transparent; }
+.cover-text .cover-roles a:hover { border-bottom-color: currentColor; }
 
 /* Small, light contact lines under the roles: label + clickable link. */
 .cover-text .cover-contact {

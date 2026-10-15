@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resume — Lyu Jiaxin</title>
+  <meta name="description" content="Resume of Lyu Jiaxin: biostatistician and data analyst versions, each in English and Chinese, as one-page PDFs." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Page-specific layout only; colours and type come from style.css tokens. */
+    .resume-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-3); }
+    .resume-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-bg-elevated);
+      padding: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .resume-card h2 { margin: 0; font-size: 1.35rem; }
+    .resume-card p { margin: 0; color: var(--color-text-muted); font-size: 0.95rem; }
+    .resume-card .focus { color: var(--color-text); }
+    .resume-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: auto; padding-top: 0.6rem; }
+    .resume-links a {
+      background: var(--color-accent);
+      color: #fff;
+      border-bottom: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+    }
+    .resume-links a:hover { opacity: 0.9; }
+    .resume-note { margin-top: var(--space-3); color: var(--color-text-muted); font-size: 0.9rem; }
+    @media (max-width: 640px) { .resume-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body data-page="resume">
+
+  <header id="site-nav"></header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Resume</p>
+        <h1>Download my resume</h1>
+        <p class="lede">
+          Three versions, each in English and in Chinese. Pick the one that
+          matches the role. Every file is a one-page PDF.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="resume-grid">
+
+          <article class="resume-card">
+            <h2>Biostatistician</h2>
+            <p class="focus">Regression and model selection, survival analysis, simulation study design and sensitivity analysis in R.</p>
+            <p>Features my MSc thesis re-analysis, a survival-analysis simulation study and bioinformatics coursework.</p>
+            <div class="resume-links">
+              <a href="assets/resume-biostatistician-en.pdf" target="_blank" rel="noopener">English (PDF)</a>
+              <a href="assets/resume-biostatistician-zh.pdf" target="_blank" rel="noopener" lang="zh-CN">中文 (PDF)</a>
+            </div>
+          </article>
+
+          <article class="resume-card">
+            <h2>Data Analyst</h2>
+            <p class="focus">Statistical analysis in R and Python: regression modelling, sensitivity analysis, simulation and machine learning.</p>
+            <p>Features my MSc thesis re-analysis, a simulation study and a market benchmarking project from my product role.</p>
+            <div class="resume-links">
+              <a href="assets/resume-data-analyst-en.pdf" target="_blank" rel="noopener">English (PDF)</a>
+              <a href="assets/resume-data-analyst-zh.pdf" target="_blank" rel="noopener" lang="zh-CN">中文 (PDF)</a>
+            </div>
+          </article>
+
+
+          <article class="resume-card">
+            <h2>AI Product Manager</h2>
+            <p class="focus">Product experience plus AI-assisted products built end to end on my own: requirements, prompt and skill design, build and testing.</p>
+            <p>Features my project-management system and EHS benchmarking work, three AI tools and two AI short films.</p>
+            <div class="resume-links">
+              <a href="assets/resume-ai-product-manager-en.pdf" target="_blank" rel="noopener">English (PDF)</a>
+              <a href="assets/resume-ai-product-manager-zh.pdf" target="_blank" rel="noopener" lang="zh-CN">中文 (PDF)</a>
+            </div>
+          </article>
+
+        </div>
+        <p class="resume-note">
+          The Chinese and English versions have the same content. The PDFs open in a new tab, and your browser's viewer has a download button.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>const BASE_PATH = "./";</script>
+  <script src="js/partials.js"></script>
+</body>
+</html>

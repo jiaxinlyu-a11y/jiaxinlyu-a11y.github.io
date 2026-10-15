@@ -22,14 +22,15 @@
     <section class="cover" id="cover">
       <div class="cover-layout">
         <div class="cover-text">
-          <a class="cover-resume-btn" href="assets/resume.pdf" target="_blank" rel="noopener">
+          <a class="cover-resume-btn" href="resume.html">
             Download Resume
           </a>
           <h1>Lyu Jiaxin</h1>
           <p class="eyebrow roles-label">Target roles</p>
           <ul class="cover-roles">
-            <li>Biostatistician</li>
-            <li>Data Analyst</li>
+            <li><a href="#featured-work" data-role="biostat" title="See what I bring for this role">Biostatistician</a></li>
+            <li><a href="#featured-work" data-role="analyst" title="See what I bring for this role">Data Analyst</a></li>
+            <li><a href="#featured-work" data-role="aipm" title="See what I bring for this role">AI Product Manager</a></li>
           </ul>
           <ul class="cover-contact">
             <li><span>Email</span> <a href="mailto:18224734143@163.com">18224734143@163.com</a></li>
@@ -82,6 +83,8 @@
                   aria-selected="true" aria-controls="fit-panel-biostat" data-target="biostat">Biostatistician</button>
           <button type="button" class="fit-tab" role="tab" id="fit-tab-analyst"
                   aria-selected="false" aria-controls="fit-panel-analyst" data-target="analyst">Data Analyst</button>
+          <button type="button" class="fit-tab" role="tab" id="fit-tab-aipm"
+                  aria-selected="false" aria-controls="fit-panel-aipm" data-target="aipm">AI Product Manager</button>
         </div>
 
         <div class="fit-panel" id="fit-panel-biostat" role="tabpanel" aria-labelledby="fit-tab-biostat">
@@ -148,6 +151,42 @@
                 <ul class="fit-list">
                   <li>R, Python, SQL, Excel</li>
                   <li>Market research and data processing in a product role</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fit-panel" id="fit-panel-aipm" role="tabpanel" aria-labelledby="fit-tab-aipm" hidden>
+          <p class="fit-summary">Product experience, plus AI-assisted products I built end to end on my own: requirements, prompt and skill design, build and testing.</p>
+          <div class="fit-grid">
+            <div class="fit-box fit-projects">
+              <p class="fit-label">Projects</p>
+              <ul class="fit-list">
+                <li><a href="projects/short-story-expander.html">Short Story Expander</a>
+                  <span>Writing skills refined by hand, plus a local workbench that uses them: a story now takes about two hours instead of six (my own estimate).</span></li>
+                <li><a href="projects/job-pilot.html">JobPilot</a>
+                  <span>Job-search web app with one feature for each problem I hit, on a hosted Supabase backend.</span></li>
+                <li><a href="projects/pm-system.html">Project-management system</a>
+                  <span>Internal system I owned end to end: surveyed four tools and derived requirements for departments that could not state them.</span></li>
+              </ul>
+            </div>
+            <div class="fit-side">
+              <div class="fit-box">
+                <p class="fit-label">Experience</p>
+                <ul class="fit-list">
+                  <li>Product assistant &amp; delivery engineer, almost two years
+                    <span><a href="projects/ehs-product.html">EHS product benchmarking</a>: 5 vendors, about 196 core functions</span></li>
+                </ul>
+              </div>
+              <div class="fit-box">
+                <p class="fit-label">Skills</p>
+                <ul class="fit-list">
+                  <li>Requirements, competitor benchmarking, process design</li>
+                  <li>Prompt and skill design, human-AI workflow design, AI-assisted development</li>
+                  <li>Two AI short films made with TapNow:
+                    <a href="https://app.tapnow.ai/home/taptv/5/106488c8-7fba-4d65-aac7-d530c082bccd?order=final_score" target="_blank" rel="noopener">unihorse &#8599;</a> &middot;
+                    <a href="https://app.tapnow.ai/home/taptv/3/6abec6cb-53b9-4280-9092-2a0ec9aab74f?order=final_score" target="_blank" rel="noopener">门外的牵挂 &#8599;</a></li>
                 </ul>
               </div>
             </div>
@@ -324,6 +363,16 @@
 
         if (pageUpBtn) pageUpBtn.addEventListener("click", () => goToPage(currentPage - 1));
         if (pageDownBtn) pageDownBtn.addEventListener("click", () => goToPage(currentPage + 1));
+
+        // Cover roles: open the matching tab in "What I bring", then jump there.
+        document.querySelectorAll(".cover-roles a[data-role]").forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const tab = document.getElementById("fit-tab-" + link.dataset.role);
+            if (tab) tab.click();
+            goToPage(PAGES.indexOf(document.getElementById("featured-work")));
+          });
+        });
         updatePageNavButtons();
       }
 

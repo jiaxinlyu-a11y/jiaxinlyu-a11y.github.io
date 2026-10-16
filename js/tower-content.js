@@ -40,12 +40,13 @@ const TOWER_TIERS = [
         <p class="dcard-sub">Statistician &amp; Data Scientist &middot; Guangzhou, China</p>
         <p class="dcard-text">I have an MSc in Statistical Data Science from
         University College Dublin and almost two years of product work before
-        it. I am looking for biostatistics roles, with data analysis as a
-        second choice.</p>
+        it. I am looking for biostatistics roles first, and I am also open to
+        data analyst and AI product manager roles.</p>
         <div class="chips">
           <span class="chip">MSc Statistical Data Science</span>
           <span class="chip">Biostatistics</span>
           <span class="chip">Product background</span>
+          <span class="chip">AI product</span>
         </div>
       </div>
       <div class="dcard">

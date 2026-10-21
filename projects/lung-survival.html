@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lung cancer survival in R and SAS &mdash; Lyu Jiaxin</title>
+  <meta name="description" content="The same survival analysis of 228 lung cancer patients run in both R and SAS: Kaplan-Meier curves, log-rank test and a Cox model, with every result checked across the two programs." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/case.css" />
+</head>
+<body class="case" data-page="projects">
+
+  <header id="site-nav"></header>
+
+  <div class="case-wrap">
+    <main class="case-main">
+<p class="cs-eyebrow">Case study &middot; Survival analysis &middot; R and SAS</p>
+<h1>Who lives longer with advanced lung cancer?</h1>
+<p class="cs-lead"><b>I ran the same survival analysis twice, once in R and once in SAS, and checked every result against the other.</b> The question: how are sex, age and a doctor&rsquo;s rating of fitness linked to how long patients survive?</p>
+
+<section class="cs-sec" id="s1" data-sum="228 patients, 165 deaths"><h2><span class="n">01</span>The data</h2>
+<p class="cs-say">The <code>lung</code> data in R&rsquo;s <code>survival</code> package, from the North Central Cancer Treatment Group. Each row is one patient: days of follow-up, whether the patient died, sex, age and an ECOG performance score. Patients still alive at their last visit are &ldquo;censored&rdquo;: we know they survived at least that long.</p>
+<div class="cs-stats"><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9" r="2.6"/><path d="M17 14.2c2.6.3 4.5 2.2 4.5 5.3"/></svg><b>228</b><span>patients with advanced lung cancer (90 women, 138 men)</span></div><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg><b>165</b><span>deaths during follow-up; the other 63 were still alive at the last visit</span></div><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><b>227</b><span>patients in the final model (one has no ECOG score)</span></div></div>
+</section>
+
+<section class="cs-sec" id="s2" data-sum="Four steps, each in R and SAS"><h2><span class="n">02</span>The methods, side by side</h2>
+<p class="cs-say">Four steps, each done in both programs.</p>
+<div class="cs-tbl-w"><table class="cs-tbl "><thead><tr><th class="">Question</th><th class="">Method</th><th class="c"><span class="tg tg-r">R</span></th><th class="c"><span class="tg tg-s">SAS</span></th></tr></thead><tbody><tr><td>How does survival change over time?</td><td>Kaplan&ndash;Meier curves</td><td>survfit</td><td>PROC LIFETEST</td></tr><tr><td>Do women and men differ?</td><td>Log-rank test</td><td>survdiff</td><td>PROC LIFETEST</td></tr><tr><td>Which factors matter, adjusting for each other?</td><td>Cox proportional-hazards model</td><td>coxph</td><td>PROC PHREG</td></tr><tr><td>Does the Cox model&rsquo;s key assumption hold?</td><td>Proportional-hazards check</td><td>cox.zph</td><td>PROC PHREG&nbsp;(ASSESS)</td></tr></tbody></table></div>
+</section>
+
+<section class="cs-sec" id="s3" data-sum="Women live longer; ECOG matters"><h2><span class="n">03</span>What I found</h2>
+<p class="cs-say"><b>Women survive longer.</b> Median survival is 426 days for women and 270 days for men, and the curves separate early and stay apart.</p>
+<figure><p class="cs-fig-t">Figure 1 &middot; Survival curves by sex</p><svg viewBox="0 0 760 340" role="img" aria-label="Kaplan-Meier survival curves for women and men"><line x1="60" y1="270.0" x2="740" y2="270.0" class="grid"/><text x="52" y="274.0" text-anchor="end" font-size="10.5" class="tm">0%</text><line x1="60" y1="210.0" x2="740" y2="210.0" class="grid"/><text x="52" y="214.0" text-anchor="end" font-size="10.5" class="tm">25%</text><line x1="60" y1="150.0" x2="740" y2="150.0" class="grid"/><text x="52" y="154.0" text-anchor="end" font-size="10.5" class="tm">50%</text><line x1="60" y1="90.0" x2="740" y2="90.0" class="grid"/><text x="52" y="94.0" text-anchor="end" font-size="10.5" class="tm">75%</text><line x1="60" y1="30.0" x2="740" y2="30.0" class="grid"/><text x="52" y="34.0" text-anchor="end" font-size="10.5" class="tm">100%</text><text x="60.0" y="288" text-anchor="middle" font-size="10.5" class="tm">0</text><text x="189.5" y="288" text-anchor="middle" font-size="10.5" class="tm">200</text><text x="319.0" y="288" text-anchor="middle" font-size="10.5" class="tm">400</text><text x="448.6" y="288" text-anchor="middle" font-size="10.5" class="tm">600</text><text x="578.1" y="288" text-anchor="middle" font-size="10.5" class="tm">800</text><text x="707.6" y="288" text-anchor="middle" font-size="10.5" class="tm">1000</text><text x="400" y="310" text-anchor="middle" font-size="11" class="tm">days since start of follow-up</text><text x="0" y="14" font-size="11" class="tm">share of patients still alive</text><line x1="60" y1="150.0" x2="335.9" y2="150.0" class="dash"/><line x1="234.9" y1="150.0" x2="234.9" y2="270" class="dash"/><line x1="335.9" y1="150.0" x2="335.9" y2="270" class="dash"/><path d="M60.0,30.0 H67.1 V35.2 H67.8 V37.0 H68.4 V40.4 H69.7 V42.2 H76.8 V43.9 H79.4 V45.7 H80.1 V47.4 H94.3 V50.9 H95.0 V52.6 H98.2 V54.3 H98.9 V56.1 H102.1 V59.6 H106.0 V61.3 H112.5 V63.0 H117.0 V66.5 H119.6 V68.3 H120.2 V70.0 H121.5 V71.7 H128.0 V73.5 H129.3 V75.2 H131.2 V77.0 H135.1 V78.7 H136.4 V80.4 H144.8 V82.2 H145.5 V85.7 H147.4 V87.4 H152.0 V89.1 H153.3 V90.9 H155.2 V92.6 H161.0 V96.1 H165.6 V101.3 H167.5 V103.0 H170.1 V104.8 H173.3 V106.5 H174.0 V108.3 H174.6 V110.1 H175.9 V113.6 H176.6 V115.3 H177.2 V118.8 H178.5 V120.6 H182.4 V122.4 H187.6 V124.2 H190.8 V126.1 H194.1 V128.0 H196.0 V129.9 H197.3 V131.7 H201.2 V133.6 H203.8 V135.5 H204.4 V137.4 H208.3 V139.4 H209.0 V141.4 H214.8 V143.4 H219.3 V145.4 H232.9 V147.4 H234.2 V149.5 H234.9 V151.5 H243.3 V153.6 H243.9 V155.7 H244.6 V157.8 H245.2 V159.9 H246.5 V162.0 H248.5 V164.1 H254.9 V166.3 H256.2 V168.6 H258.2 V170.9 H260.8 V173.2 H267.2 V175.5 H273.1 V177.8 H278.2 V180.1 H288.6 V184.7 H295.1 V187.0 H295.7 V189.3 H300.3 V191.6 H310.6 V193.9 H312.6 V196.3 H315.2 V198.6 H337.2 V201.0 H337.8 V203.5 H346.2 V205.9 H354.7 V208.5 H356.0 V211.1 H357.9 V213.8 H368.9 V216.4 H396.1 V219.1 H399.4 V221.8 H405.2 V224.5 H421.4 V227.1 H427.2 V229.8 H431.7 V232.5 H437.6 V235.2 H457.0 V237.9 H464.1 V240.5 H476.4 V243.2 H484.2 V245.9 H506.2 V248.6 H517.9 V251.3 H572.3 V253.9 H587.2 V257.1 H631.8 V261.4 H721.9" class="ln1"/><path d="M60.0,30.0 H63.2 V32.7 H98.9 V35.3 H99.5 V38.0 H100.2 V40.7 H111.2 V43.3 H112.5 V46.0 H121.5 V48.7 H129.3 V51.4 H139.0 V54.2 H153.9 V59.6 H159.1 V62.4 H167.5 V65.1 H168.2 V67.8 H177.9 V70.7 H180.5 V73.5 H185.6 V76.4 H188.9 V79.3 H190.2 V85.1 H194.7 V88.1 H206.4 V91.1 H214.8 V94.3 H218.7 V97.5 H233.6 V100.9 H244.6 V104.5 H249.8 V108.2 H257.5 V112.0 H260.8 V115.7 H280.2 V119.7 H283.4 V123.6 H285.4 V127.6 H286.7 V131.5 H287.3 V135.5 H293.8 V139.6 H295.1 V143.6 H300.3 V147.9 H335.9 V152.6 H340.4 V157.3 H347.5 V162.0 H351.4 V166.7 H366.3 V171.3 H396.8 V176.5 H399.4 V181.7 H416.2 V187.6 H475.1 V195.1 H483.5 V202.6 H504.9 V210.1 H516.6 V217.6 H531.5 V225.1 H533.4 V232.6 H536.0 V240.0 H555.4 V250.0 H685.0" class="ln2"/><circle cx="234.9" cy="150.0" r="4.5" class="dot1"/><circle cx="335.9" cy="150.0" r="4.5" class="dot2"/><text x="227.9" y="260" text-anchor="end" font-size="11.5" font-weight="700" class="halo">median 270 days</text><text x="227.9" y="260" text-anchor="end" font-size="11.5" font-weight="700">median 270 days</text><text x="342.9" y="260" text-anchor="start" font-size="11.5" font-weight="700" class="halo">median 426 days</text><text x="342.9" y="260" text-anchor="start" font-size="11.5" font-weight="700">median 426 days</text><line x1="500" y1="48" x2="526" y2="48" class="ln2"/><text x="534" y="52" font-size="12">Women (n = 90, 53 deaths)</text><line x1="500" y1="72" x2="526" y2="72" class="ln1"/><text x="534" y="76" font-size="12">Men (n = 138, 112 deaths)</text><text x="500" y="104" font-size="12" font-weight="700">log-rank test: p = 0.001</text></svg><figcaption><b>How to read it.</b> Each curve shows the share of patients still alive after a given number of days. The dot marks the median, where the curve crosses 50%. A higher curve means longer survival.</figcaption></figure>
+<p class="cs-say"><b>The gap holds after adjustment.</b> With age and ECOG score in the same model, being a woman still goes with a lower risk of death (hazard ratio 0.575). Each extra ECOG point goes with about 59% higher risk. Age is not significant once the other two are included.</p>
+<figure><p class="cs-fig-t">Figure 2 &middot; Hazard ratios from the Cox model</p><svg viewBox="0 0 760 268" role="img" aria-label="Hazard ratios from the Cox model for ECOG score, age and sex"><text x="760" y="16" text-anchor="end" font-size="11" font-weight="700" class="tm">Hazard ratio (95% CI)</text><line x1="387.2" y1="38" x2="387.2" y2="198" class="grid"/><text x="387.2" y="216" text-anchor="middle" font-size="10.5" class="tm">0.5</text><line x1="478.8" y1="38" x2="478.8" y2="198" class="grid"/><text x="478.8" y="216" text-anchor="middle" font-size="10.5" class="tm">1</text><line x1="570.5" y1="38" x2="570.5" y2="198" class="grid"/><text x="570.5" y="216" text-anchor="middle" font-size="10.5" class="tm">2</text><line x1="478.8" y1="38" x2="478.8" y2="198" class="dash"/><text x="0" y="68" font-size="12.5" font-weight="700">ECOG score</text><text x="0" y="85" font-size="11" class="tm">per 1-point increase (doctor-rated, higher = more limited)</text><line x1="510.7" y1="74" x2="569.6" y2="74" class="ci"/><circle cx="540.2" cy="74" r="5" class="dot1"/><text x="760" y="78" text-anchor="end" font-size="12" font-weight="700">1.590 (1.273&ndash;1.986)</text><text x="0" y="118" font-size="12.5" font-weight="700">Age</text><text x="0" y="135" font-size="11" class="tm">per extra year</text><line x1="477.9" y1="124" x2="482.7" y2="124" class="ci ci-n"/><circle cx="480.3" cy="124" r="5" class="dotk"/><text x="760" y="128" text-anchor="end" font-size="12" font-weight="700">1.011 (0.993&ndash;1.030)</text><text x="0" y="168" font-size="12.5" font-weight="700">Sex</text><text x="0" y="185" font-size="11" class="tm">women compared with men</text><line x1="362.2" y1="174" x2="449.2" y2="174" class="ci"/><circle cx="405.6" cy="174" r="5" class="dot1"/><text x="760" y="178" text-anchor="end" font-size="12" font-weight="700">0.575 (0.414&ndash;0.799)</text><text x="470.8" y="236" text-anchor="end" font-size="11" class="tm">&larr; lower risk of death</text><text x="486.8" y="236" text-anchor="start" font-size="11" class="tm">higher risk of death &rarr;</text></svg><figcaption><b>How to read it.</b> A hazard ratio below 1 means lower risk of death, above 1 means higher. A bar that crosses 1 (grey) is not significant. The proportional-hazards check found no evidence that these ratios change over time.</figcaption></figure>
+</section>
+
+<section class="cs-sec" id="s4" data-sum="Same answer in both programs"><h2><span class="n">04</span>Same answer in R and SAS</h2>
+<p class="cs-say">Every estimate matches to the digits shown. The two programs use different default methods for the confidence limits of the medians and for the proportional-hazards test, so those numbers differ slightly; the conclusions do not.</p>
+<div class="cs-tbl-w"><table class="cs-tbl cmp"><thead><tr><th class="">Result</th><th class="c"><span class="tg tg-r">R</span></th><th class="c"><span class="tg tg-s">SAS</span></th><th class="c">Match</th></tr></thead><tbody><tr><td>Median survival, women</td><td>426 days</td><td>426 days</td><td><span class="okc"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></td></tr><tr><td>Median survival, men</td><td>270 days</td><td>270 days</td><td><span class="okc"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></td></tr><tr><td>Log-rank test</td><td>&chi;&sup2; 10.3, p = 0.001</td><td>&chi;&sup2; 10.33, p = 0.0013</td><td><span class="okc"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></td></tr><tr><td>Hazard ratio, sex&nbsp;(women vs men)</td><td>0.575&nbsp;(0.414&ndash;0.799)</td><td>0.575&nbsp;(0.414&ndash;0.799)</td><td><span class="okc"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></td></tr><tr><td>Hazard ratio, ECOG&nbsp;(per point)</td><td>1.590&nbsp;(1.273&ndash;1.986)</td><td>1.590&nbsp;(1.273&ndash;1.986)</td><td><span class="okc"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></td></tr><tr><td>Hazard ratio, age&nbsp;(per year)</td><td>1.011&nbsp;(0.993&ndash;1.030)</td><td>1.011&nbsp;(0.993&ndash;1.030)</td><td><span class="okc"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></td></tr><tr><td>Proportional-hazards check</td><td>no evidence against&nbsp;(global p = 0.25)</td><td>no evidence against&nbsp;(p = 0.16 age, 0.31 sex)</td><td><span class="sm">same conclusion</span></td></tr></tbody></table></div>
+<p class="cs-say"><b>Bottom line.</b> In this group of patients, women survived longer than men, and a worse ECOG score went with a higher risk of death. These are associations in observational follow-up data, not proof of cause.</p>
+<p class="cs-skills-l">Skills shown</p><div class="cs-skills"><span>Survival analysis</span><span>Kaplan&ndash;Meier and log-rank</span><span>Cox regression</span><span>R</span><span>SAS</span><span>Cross-checking results</span></div>
+</section>
+    </main>
+
+    <aside class="case-aside">
+      <div class="case-rail">
+        <div class="cs-card">
+          <p class="cs-label">At a glance</p>
+          <dl class="cs-kv">
+            <dt>Type</dt><dd>Practice case, public data</dd>
+            <dt>Tools</dt><dd>R &middot; SAS</dd>
+            <dt>Data</dt><dd>228 patients</dd>
+            <dt>Methods</dt><dd>KM &middot; log-rank &middot; Cox</dd>
+          </dl>
+        </div>
+        <div class="cs-card plain cs-toc-card">
+          <p class="cs-label">On this page</p>
+          <ul class="cs-toc" id="toc"><li data-t="s1"><a href="#s1"><span class="n">01</span>The data</a><div class="sum"></div></li><li data-t="s2"><a href="#s2"><span class="n">02</span>The methods, side by side</a><div class="sum"></div></li><li data-t="s3"><a href="#s3"><span class="n">03</span>What I found</a><div class="sum"></div></li><li data-t="s4"><a href="#s4"><span class="n">04</span>Same answer in R and SAS</a><div class="sum"></div></li></ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script>const BASE_PATH = "../";</script>
+  <script src="../js/partials.js"></script>
+  <script>
+    // Scroll-synced "On this page": the active section is the last one whose
+    // top has passed 35% of the viewport; its one-line summary shows under it.
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll("#toc li"));
+      var secs = items.map(function (li) { return document.getElementById(li.dataset.t); });
+      function update() {
+        var cur = 0, y = window.innerHeight * 0.35;
+        secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= y) cur = i; });
+        items.forEach(function (li, i) {
+          li.classList.toggle("on", i === cur);
+          li.querySelector(".sum").textContent = i === cur ? secs[i].dataset.sum : "";
+        });
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>An interactive technical manual reader &mdash; Lyu Jiaxin</title>
+  <meta name="description" content="A work project: the reader side of an interactive technical publication system, from requirements and prototype to delivery. Customer details withheld." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/case.css" />
+</head>
+<body class="case" data-page="projects">
+
+  <header id="site-nav"></header>
+
+  <div class="case-wrap">
+    <main class="case-main">
+<p class="cs-eyebrow">Case study &middot; Product &middot; Work project</p>
+<h1>An interactive technical manual reader</h1>
+<p class="cs-lead"><b>I designed the reading side of an interactive technical publication system (IETP):</b> what technicians see, who is allowed to see it, and how the admin tools around it work.</p>
+
+<section class="cs-sec" id="s1" data-sum="Paper manuals, made searchable"><h2><span class="n">01</span>What it is</h2>
+<p class="cs-say">Technical manuals for complex equipment are long, full of drawings and cross-references, and must be used by people with different roles and security levels. An IETP replaces the paper volume with a screen where content can be searched, linked, filtered by equipment model and controlled by permission.</p>
+<p class="cs-say">The prototype covers three parts. The <b>reader</b> is what a technician uses. The <b>admin tools</b> manage people, manual access, import, export and publishing. A set of <b>fault-finding ideas</b> (diagnosis, tracing, simulation, prediction) was proposed as a concept and not built.</p>
+<figure><p class="cs-fig-t">Figure 1 &middot; The system at a glance</p><a class="cs-img" href="../img/ietp-1-system-map.png" target="_blank" rel="noopener"><img src="../img/ietp-1-system-map.png" alt="System map with three columns: Reader, Administration and Smart functions (concept stage)" width="3200" height="1800" loading="lazy" /></a><figcaption><b>How to read it.</b> Three parts: the reader, the admin tools behind it, and a set of fault-finding ideas that stayed at concept stage. Click the picture to see it full size.</figcaption></figure>
+</section>
+
+<section class="cs-sec" id="s2" data-sum="Seven things the reader must do well"><h2><span class="n">02</span>The reader screen</h2>
+<p class="cs-say">The reader is the part I was responsible for. The screen has to answer one question at all times: where am I, and what is safe to do next? Contents and breadcrumbs answer the first. Warnings and cautions that sit inside the text answer the second, so they cannot be skipped.</p>
+<figure><p class="cs-fig-t">Figure 2 &middot; The reader screen</p><a class="cs-img" href="../img/ietp-2-reader-screen.png" target="_blank" rel="noopener"><img src="../img/ietp-2-reader-screen.png" alt="Wireframe of the reader screen with seven numbered features" width="3200" height="1800" loading="lazy" /></a><figcaption><b>How to read it.</b> A redrawn wireframe with placeholder content. The numbers match the list on the right of the picture.</figcaption></figure>
+</section>
+
+<section class="cs-sec" id="s3" data-sum="Three questions, in order"><h2><span class="n">03</span>Access control</h2>
+<p class="cs-say">Manuals carry different security levels, so the system asks three things in order: who you are, what you may see, and what you may do. Notes follow the same logic: a personal note is private, a local note is shared in its chapter, and a global note is shared everywhere. Every access is recorded for the administrator.</p>
+<figure><p class="cs-fig-t">Figure 3 &middot; Who can see and do what</p><a class="cs-img" href="../img/ietp-3-access-control.png" target="_blank" rel="noopener"><img src="../img/ietp-3-access-control.png" alt="Three-step access control: who you are, what you may see, what you may do, with an example and what gets recorded" width="3200" height="1800" loading="lazy" /></a><figcaption><b>How to read it.</b> Three questions asked in order. The table is an example with made-up manuals, not real data.</figcaption></figure>
+</section>
+
+<section class="cs-sec" id="s4" data-sum="Requirements to delivery"><h2><span class="n">04</span>My part</h2>
+<p class="cs-say">I worked with the client to turn their way of working into requirements, then drew the prototype of more than 40 screens. I worked with UI designers and developers through the build, supported testing, and took part in delivery. The reader was my sole responsibility. I also took part in the client application, together with colleagues.</p>
+<p class="cs-skills-l">Skills shown</p><div class="cs-skills"><span>Requirements analysis</span><span>Prototyping</span><span>Interaction design</span><span>Access-control design</span><span>Working with developers and testers</span></div>
+</section>
+    </main>
+
+    <aside class="case-aside">
+      <div class="case-rail">
+        <div class="cs-card">
+          <p class="cs-label">At a glance</p>
+          <dl class="cs-kv">
+            <dt>Type</dt><dd>Work project</dd>
+            <dt>My role</dt><dd>Requirements, prototype, reader design</dd>
+            <dt>Covers</dt><dd>Reader &middot; admin tools &middot; concepts</dd>
+            <dt>Customer</dt><dd>Withheld</dd>
+          </dl>
+        </div>
+        <div class="cs-card plain cs-toc-card">
+          <p class="cs-label">On this page</p>
+          <ul class="cs-toc" id="toc"><li data-t="s1"><a href="#s1"><span class="n">01</span>What it is</a><div class="sum"></div></li><li data-t="s2"><a href="#s2"><span class="n">02</span>The reader screen</a><div class="sum"></div></li><li data-t="s3"><a href="#s3"><span class="n">03</span>Access control</a><div class="sum"></div></li><li data-t="s4"><a href="#s4"><span class="n">04</span>My part</a><div class="sum"></div></li></ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script>const BASE_PATH = "../";</script>
+  <script src="../js/partials.js"></script>
+  <script>
+    // Scroll-synced "On this page": the active section is the last one whose
+    // top has passed 35% of the viewport; its one-line summary shows under it.
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll("#toc li"));
+      var secs = items.map(function (li) { return document.getElementById(li.dataset.t); });
+      function update() {
+        var cur = 0, y = window.innerHeight * 0.35;
+        secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= y) cur = i; });
+        items.forEach(function (li, i) {
+          li.classList.toggle("on", i === cur);
+          li.querySelector(".sum").textContent = i === cur ? secs[i].dataset.sum : "";
+        });
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

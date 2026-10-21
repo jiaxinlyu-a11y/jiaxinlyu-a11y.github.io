@@ -158,3 +158,40 @@
 :root[data-theme="dark"] .case svg .st-i { fill: #3a2f14; stroke: #8a6d2a; }
 :root[data-theme="dark"] .case svg .st-o { fill: #14352a; stroke: #2f7a5a; }
 :root[data-theme="dark"] .case svg .st-r { fill: #3d1a22; stroke: #8a3a4a; }
+
+/* ---- R + SAS practice cases: stat tiles, side-by-side tables, forest plots ---- */
+.case code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .86em; background: var(--color-accent-soft); color: var(--color-accent); padding: .08em .4em; border-radius: 5px; }
+.cs-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .8rem; margin: 1.2rem 0 .2rem; }
+.cs-stat { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 14px; padding: 1rem 1.1rem; }
+.cs-stat .ic { width: 26px; height: 26px; margin-bottom: .45rem; fill: none; stroke: var(--color-accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cs-stat b { display: block; font-size: 1.9rem; line-height: 1.1; letter-spacing: -.01em; }
+.cs-stat span { display: block; margin-top: .3rem; font-size: .84rem; line-height: 1.4; color: var(--color-text-muted); }
+.cs-tbl-w { overflow-x: auto; margin: 0 0 1.2rem; }
+.cs-tbl { width: 100%; border-collapse: collapse; font-size: .92rem; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 14px; overflow: hidden; }
+.cs-tbl th { text-align: left; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--color-accent-2); background: var(--color-bg-elevated); padding: .7rem 1rem; border-bottom: 1px solid var(--color-border); }
+.cs-tbl td { padding: .7rem 1rem; border-bottom: 1px solid var(--color-border); vertical-align: top; line-height: 1.45; }
+.cs-tbl tr:last-child td { border-bottom: 0; }
+.cs-tbl td:first-child { font-weight: 600; width: 30%; }
+.cs-tbl.cmp td:nth-child(2), .cs-tbl.cmp td:nth-child(3) { width: 27%; }
+.tg { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .08em; padding: .15rem .6rem; border-radius: 99px; color: #fff; }
+.tg-r { background: var(--c-s1); }
+.tg-s { background: var(--c-s2); }
+.okc { display: inline-flex; align-items: center; }
+.okc .ic { width: 18px; height: 18px; fill: none; stroke: var(--color-accent); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sm { font-size: .8rem; color: var(--color-text-muted); }
+.cs-note { margin: 1rem 0 0; font-size: .84rem; color: var(--color-text-muted); }
+.case svg .ci { stroke: var(--c-s1); stroke-width: 2.6; stroke-linecap: round; }
+.case svg .ci.ci-n { stroke: var(--color-text-muted); opacity: .6; }
+@media (max-width: 720px) { .cs-tbl th, .cs-tbl td { padding: .6rem .7rem; } .cs-tbl { min-width: 560px; } }
+@media (max-width: 560px) {
+  .cs-stats { grid-template-columns: 1fr; gap: .6rem; }
+  .cs-stat { display: flex; align-items: center; gap: .9rem; padding: .75rem .95rem; }
+  .cs-stat .ic { margin: 0; flex: none; }
+  .cs-stat b { font-size: 1.5rem; min-width: 3.4rem; }
+  .cs-stat span { margin: 0; font-size: .8rem; }
+}
+
+/* Picture figures (work-project pages): full-width raster images with a click-through to the full size. */
+.case figure a.cs-img { display: block; }
+.case figure img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--color-border); background: #fff; }
+@media (max-width: 720px) { .case figure img { min-width: 640px; } }

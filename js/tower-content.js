@@ -3,7 +3,7 @@
  * ---------------------------------------------------------------------------
  * Content for the floor-by-floor tower detail section, one entry per floor,
  * top of the tower to bottom: 0 Basic Info, 1 Education, 2 Skills,
- * 3 Work Experience, 4 Products, 5 AI Tools.
+ * 3 Work Experience, 4 Data & Code, 5 AI Products.
  *
  * `title`    is shown directly on the tower artwork itself (see pagoda.js's
  *            renderPagodaStack).
@@ -24,7 +24,7 @@
  *     <div class="chips"><span class="chip">…</span></div>
  *     <a class="dcard-row">…</a>                           (contact rows)
  *   </div>
- * Products and AI Tools use a different item: `<a class="dcard pitem">` — a
+ * Work projects, analysis cases and AI products use a different item: `<a class="dcard pitem">` — a
  * single-line row (tag + title + arrow) that expands on hover to show a
  * short blurb and chips, and links to the item's own page on click.
  * Replace placeholders with real content later.
@@ -142,6 +142,7 @@ const TOWER_TIERS = [
   {
     title: "Work Experience",
     headline: "Where I've worked",
+    hint: "Hover a project for a short summary. Click it to open the full case study.",
     body: `
       <div class="dcard">
         <div class="dcard-top">
@@ -158,11 +159,55 @@ const TOWER_TIERS = [
         </ul>
         <div class="chips"><span class="chip">Product management</span><span class="chip">Requirements analysis</span></div>
       </div>
+      <a class="dcard pitem" href="projects/ietm.html">
+        <div class="pitem-head">
+          <span class="pitem-tag">Work project</span>
+          <span class="pitem-title">IETM: Interactive Technical Manual System</span>
+          <span class="pitem-go">Case study &rarr;</span>
+        </div>
+        <div class="pitem-more"><div class="pitem-more-inner">
+          <p>What makes a shared technical-manual system hard: standards as rules, one source for many manuals, versions, offline edits and old content, and how I approach each.</p>
+          <div class="chips"><span class="chip">Requirements analysis</span><span class="chip">Workflow design</span><span class="chip">Version-control design</span></div>
+        </div></div>
+      </a>
+      <a class="dcard pitem" href="projects/ietp.html">
+        <div class="pitem-head">
+          <span class="pitem-tag">Work project</span>
+          <span class="pitem-title">IETP: Interactive Technical Manual Reader</span>
+          <span class="pitem-go">Case study &rarr;</span>
+        </div>
+        <div class="pitem-more"><div class="pitem-more-inner">
+          <p>Designed the reading side of an interactive technical publication system: requirements, a prototype of more than 40 screens, access control and delivery with developers and testers.</p>
+          <div class="chips"><span class="chip">Requirements analysis</span><span class="chip">Prototyping</span><span class="chip">Interaction design</span></div>
+        </div></div>
+      </a>
+      <a class="dcard pitem" href="projects/ehs-product.html">
+        <div class="pitem-head">
+          <span class="pitem-tag">Work project</span>
+          <span class="pitem-title">EHS Management Product</span>
+          <span class="pitem-go">Case study &rarr;</span>
+        </div>
+        <div class="pitem-more"><div class="pitem-more-inner">
+          <p>Benchmarked the market and compared three systems to design a standard EHS product, then adjusted it for one customer.</p>
+          <div class="chips"><span class="chip">Product management</span><span class="chip">Competitive benchmarking</span><span class="chip">Requirements design</span></div>
+        </div></div>
+      </a>
+      <a class="dcard pitem" href="projects/pm-system.html">
+        <div class="pitem-head">
+          <span class="pitem-tag">Work project</span>
+          <span class="pitem-title">Project Management System</span>
+          <span class="pitem-go">Case study &rarr;</span>
+        </div>
+        <div class="pitem-more"><div class="pitem-more-inner">
+          <p>Led an internal project-management system end to end: compared four tools, worked out requirements departments could not state, and designed a flow for each project type.</p>
+          <div class="chips"><span class="chip">Product ownership</span><span class="chip">Requirements elicitation</span><span class="chip">Process design</span></div>
+        </div></div>
+      </a>
     `,
   },
   {
-    title: "Products",
-    headline: "Projects & case studies",
+    title: "Data & Code",
+    headline: "Data analysis and code",
     hint: "Hover a project for a short summary. Click it to open the full case study.",
     body: `
       <a class="dcard pitem" href="projects/keto-cta.html">
@@ -187,6 +232,35 @@ const TOWER_TIERS = [
           <div class="chips"><span class="chip">R</span><span class="chip">Survival analysis</span><span class="chip">Simulation (ADEMP)</span></div>
         </div></div>
       </a>
+      <a class="dcard pitem" href="projects/lung-survival.html">
+        <div class="pitem-head">
+          <span class="pitem-tag">Practice case</span>
+          <span class="pitem-title">Lung Cancer Survival (R and SAS)</span>
+          <span class="pitem-go">Case study &rarr;</span>
+        </div>
+        <div class="pitem-more"><div class="pitem-more-inner">
+          <p>The same survival analysis of 228 lung cancer patients run in both R and SAS: Kaplan-Meier, log-rank and Cox, with every result checked across the two programs.</p>
+          <div class="chips"><span class="chip">R</span><span class="chip">SAS</span><span class="chip">Survival analysis</span></div>
+        </div></div>
+      </a>
+      <a class="dcard pitem" href="projects/bank-marketing.html">
+        <div class="pitem-head">
+          <span class="pitem-tag">Practice case</span>
+          <span class="pitem-title">Bank Marketing (R and SAS)</span>
+          <span class="pitem-go">Case study &rarr;</span>
+        </div>
+        <div class="pitem-more"><div class="pitem-more-inner">
+          <p>Who subscribes to a term deposit? A logistic regression on 45,211 bank phone calls, run in both R and SAS, with a train-test check and a target-leakage trap.</p>
+          <div class="chips"><span class="chip">R</span><span class="chip">SAS</span><span class="chip">Logistic regression</span></div>
+        </div></div>
+      </a>
+    `,
+  },
+  {
+    title: "AI Products",
+    headline: "Products and videos I made with AI",
+    hint: "Hover an item for a short summary. Click it to open its page; the videos open on TapNow.",
+    body: `
       <a class="dcard pitem" href="projects/checkup-planner.html">
         <div class="pitem-head">
           <span class="pitem-tag">Product</span>
@@ -198,35 +272,6 @@ const TOWER_TIERS = [
           <div class="chips"><span class="chip">Screening guidelines</span><span class="chip">JavaScript</span><span class="chip">English &amp; Chinese</span></div>
         </div></div>
       </a>
-      <a class="dcard pitem" href="projects/ehs-product.html">
-        <div class="pitem-head">
-          <span class="pitem-tag">Product</span>
-          <span class="pitem-title">EHS Management Product</span>
-          <span class="pitem-go">Case study &rarr;</span>
-        </div>
-        <div class="pitem-more"><div class="pitem-more-inner">
-          <p>Benchmarked the market and compared three systems to design a standard EHS product, then adjusted it for one customer.</p>
-          <div class="chips"><span class="chip">Product management</span><span class="chip">Competitive benchmarking</span><span class="chip">Requirements design</span></div>
-        </div></div>
-      </a>
-      <a class="dcard pitem" href="projects/pm-system.html">
-        <div class="pitem-head">
-          <span class="pitem-tag">Product</span>
-          <span class="pitem-title">Project Management System</span>
-          <span class="pitem-go">Case study &rarr;</span>
-        </div>
-        <div class="pitem-more"><div class="pitem-more-inner">
-          <p>Led an internal project-management system end to end: compared four tools, worked out requirements departments could not state, and designed a flow for each project type.</p>
-          <div class="chips"><span class="chip">Product ownership</span><span class="chip">Requirements elicitation</span><span class="chip">Process design</span></div>
-        </div></div>
-      </a>
-    `,
-  },
-  {
-    title: "Built with AI",
-    headline: "Tools and videos I made with AI",
-    hint: "Hover an item for a short summary. Click it to open its page; the videos open on TapNow.",
-    body: `
       <a class="dcard pitem" href="projects/short-story-expander.html">
         <div class="pitem-head">
           <span class="pitem-tag">AI tool</span>

@@ -38,9 +38,23 @@ const RESUME_HREF = `${ROOT}resume.html`;
 // No Home/About/Projects/Contact page-tab menu — this is a single page.
 // The bar at the top is the greeting and the always-there Resume button.
 // Every page except the home page also gets a "← Home" link on the left,
-// which returns to the home page with the tower open on the Products floor
-// (index.html reads the #products hash). The home page itself has no back
-// link — it's the page being returned to.
+// which returns to the home page with the tower open on the floor that page
+// belongs to (index.html reads the hash, e.g. #work-experience). The home page
+// itself has no back link — it's the page being returned to.
+const FLOOR_BY_PAGE = {
+  "ietm.html": "work-experience",
+  "ietp.html": "work-experience",
+  "ehs-product.html": "work-experience",
+  "pm-system.html": "work-experience",
+  "keto-cta.html": "data-&-code",
+  "survival-sim.html": "data-&-code",
+  "lung-survival.html": "data-&-code",
+  "bank-marketing.html": "data-&-code",
+};
+function backFloor() {
+  const file = location.pathname.split("/").pop() || "";
+  return FLOOR_BY_PAGE[file] || "ai-products";
+}
 function renderNav() {
   const mount = document.getElementById("site-nav");
   if (!mount) return;
@@ -48,7 +62,7 @@ function renderNav() {
   const isHome = document.body.dataset.page === "home";
   const backLink = isHome
     ? ""
-    : `<a class="nav-back" href="${ROOT}index.html${document.body.dataset.page === "resume" ? "" : "#products"}" aria-label="Back to the home page">&larr;<span class="nav-back-text"> Home</span></a>`;
+    : `<a class="nav-back" href="${ROOT}index.html${document.body.dataset.page === "resume" ? "" : "#" + backFloor()}" aria-label="Back to the home page">&larr;<span class="nav-back-text"> Home</span></a>`;
 
   mount.innerHTML = `
     <div class="container">

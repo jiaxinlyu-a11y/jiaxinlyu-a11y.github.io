@@ -210,50 +210,75 @@ const TOWER_TIERS = [
     headline: "Data analysis and code",
     hint: "Hover a project for a short summary. Click it to open the full case study.",
     body: `
-      <a class="dcard pitem" href="projects/keto-cta.html">
-        <div class="pitem-head">
-          <span class="pitem-tag">MSc thesis</span>
-          <span class="pitem-title">KETO-CTA Re-Analysis</span>
-          <span class="pitem-go">Case study &rarr;</span>
-        </div>
-        <div class="pitem-more"><div class="pitem-more-inner">
-          <p>Re-analysis of a retracted imaging study: how I chose and stress-tested a regression model, and built a tool to rebuild missing data.</p>
-          <div class="chips"><span class="chip">R</span><span class="chip">Regression modelling</span><span class="chip">Model selection</span></div>
-        </div></div>
-      </a>
-      <a class="dcard pitem" href="projects/survival-sim.html">
-        <div class="pitem-head">
-          <span class="pitem-tag">Simulation study</span>
-          <span class="pitem-title">Survival Analysis Simulation</span>
-          <span class="pitem-go">Case study &rarr;</span>
-        </div>
-        <div class="pitem-more"><div class="pitem-more-inner">
-          <p>A from-scratch simulation comparing the Cox, log-rank and RMST tests when a treatment effect changes over time. Reproducible R project on GitHub.</p>
-          <div class="chips"><span class="chip">R</span><span class="chip">Survival analysis</span><span class="chip">Simulation (ADEMP)</span></div>
-        </div></div>
-      </a>
-      <a class="dcard pitem" href="projects/lung-survival.html">
-        <div class="pitem-head">
-          <span class="pitem-tag">Practice case</span>
-          <span class="pitem-title">Lung Cancer Survival (R and SAS)</span>
-          <span class="pitem-go">Case study &rarr;</span>
-        </div>
-        <div class="pitem-more"><div class="pitem-more-inner">
-          <p>The same survival analysis of 228 lung cancer patients run in both R and SAS: Kaplan-Meier, log-rank and Cox, with every result checked across the two programs.</p>
-          <div class="chips"><span class="chip">R</span><span class="chip">SAS</span><span class="chip">Survival analysis</span></div>
-        </div></div>
-      </a>
-      <a class="dcard pitem" href="projects/bank-marketing.html">
-        <div class="pitem-head">
-          <span class="pitem-tag">Practice case</span>
-          <span class="pitem-title">Bank Marketing (R and SAS)</span>
-          <span class="pitem-go">Case study &rarr;</span>
-        </div>
-        <div class="pitem-more"><div class="pitem-more-inner">
-          <p>Who subscribes to a term deposit? A logistic regression on 45,211 bank phone calls, run in both R and SAS, with a train-test check and a target-leakage trap.</p>
-          <div class="chips"><span class="chip">R</span><span class="chip">SAS</span><span class="chip">Logistic regression</span></div>
-        </div></div>
-      </a>
+        <div class="dcard-label">Thesis &amp; simulation</div>
+        <a class="dcard pitem" href="projects/keto-cta.html">
+          <div class="pitem-head">
+            <span class="pitem-tag">MSc thesis</span>
+            <span class="pitem-title">KETO-CTA Re-Analysis</span>
+            <span class="pitem-go">Case study &rarr;</span>
+          </div>
+          <div class="pitem-more"><div class="pitem-more-inner">
+            <p>Re-analysis of a retracted imaging study: how I chose and stress-tested a regression model, and built a tool to rebuild missing data.</p>
+            <div class="chips"><span class="chip">R</span><span class="chip">Regression modelling</span><span class="chip">Model selection</span></div>
+          </div></div>
+        </a>
+        <a class="dcard pitem" href="projects/survival-sim.html">
+          <div class="pitem-head">
+            <span class="pitem-tag">Simulation study</span>
+            <span class="pitem-title">Survival Analysis Simulation</span>
+            <span class="pitem-go">Case study &rarr;</span>
+          </div>
+          <div class="pitem-more"><div class="pitem-more-inner">
+            <p>A from-scratch simulation comparing the Cox, log-rank and RMST tests when a treatment effect changes over time. Reproducible R project on GitHub.</p>
+            <div class="chips"><span class="chip">R</span><span class="chip">Survival analysis</span><span class="chip">Simulation (ADEMP)</span></div>
+          </div></div>
+        </a>
+        <div class="dcard-label">CDISC pilot study</div>
+        <a class="dcard pitem" href="projects/cdisc-pilot.html">
+          <div class="pitem-head">
+            <span class="pitem-tag">Practice case</span>
+            <span class="pitem-title">CDISC Pilot: SDTM to ADaM to TLF</span>
+            <span class="pitem-go">Case study &rarr;</span>
+          </div>
+          <div class="pitem-more"><div class="pitem-more-inner">
+            <p>A clinical-trial programmer's full workflow on public trial data: SDTM into two ADaM datasets, then into two report tables, with every number checked again in R.</p>
+            <div class="chips"><span class="chip">SAS</span><span class="chip">R</span><span class="chip">CDISC SDTM/ADaM</span></div>
+          </div></div>
+        </a>
+        <a class="dcard pitem" href="projects/llm-medical-coding.html">
+          <div class="pitem-head">
+            <span class="pitem-tag">Practice case</span>
+            <span class="pitem-title">LLM Medical Coding</span>
+            <span class="pitem-go">Case study &rarr;</span>
+          </div>
+          <div class="pitem-more"><div class="pitem-more-inner">
+            <p>Using an LLM as a zero-shot classifier on the same adverse-event data: sorting terms into their MedDRA category, then rewriting the prompt after reading the actual mistakes (83.9% &rarr; 86.8%).</p>
+            <div class="chips"><span class="chip">Python</span><span class="chip">LLM API</span><span class="chip">Prompt engineering</span></div>
+          </div></div>
+        </a>
+        <div class="dcard-label">Practice cases</div>
+        <a class="dcard pitem" href="projects/lung-survival.html">
+          <div class="pitem-head">
+            <span class="pitem-tag">Practice case</span>
+            <span class="pitem-title">Lung Cancer Survival (R and SAS)</span>
+            <span class="pitem-go">Case study &rarr;</span>
+          </div>
+          <div class="pitem-more"><div class="pitem-more-inner">
+            <p>The same survival analysis of 228 lung cancer patients run in both R and SAS: Kaplan-Meier, log-rank and Cox, with every result checked across the two programs.</p>
+            <div class="chips"><span class="chip">R</span><span class="chip">SAS</span><span class="chip">Survival analysis</span></div>
+          </div></div>
+        </a>
+        <a class="dcard pitem" href="projects/bank-marketing.html">
+          <div class="pitem-head">
+            <span class="pitem-tag">Practice case</span>
+            <span class="pitem-title">Bank Marketing (R and SAS)</span>
+            <span class="pitem-go">Case study &rarr;</span>
+          </div>
+          <div class="pitem-more"><div class="pitem-more-inner">
+            <p>Who subscribes to a term deposit? A logistic regression on 45,211 bank phone calls, run in both R and SAS, with a train-test check and a target-leakage trap.</p>
+            <div class="chips"><span class="chip">R</span><span class="chip">SAS</span><span class="chip">Logistic regression</span></div>
+          </div></div>
+        </a>
     `,
   },
   {
@@ -261,7 +286,20 @@ const TOWER_TIERS = [
     headline: "Products and videos I made with AI",
     hint: "Hover an item for a short summary. Click it to open its page; the videos open on TapNow.",
     body: `
-      <a class="dcard pitem" href="projects/checkup-planner.html">
+        <div class="dcard-label">AI Agent</div>
+        <a class="dcard pitem" href="https://github.com/jiaxinlyu-a11y/last-mile-pm-to-code" target="_blank" rel="noopener">
+        <div class="pitem-head">
+          <span class="pitem-tag">AI agent</span>
+          <span class="pitem-title">The Last Mile: PM to Code</span>
+          <span class="pitem-go">GitHub &nearr;</span>
+        </div>
+        <div class="pitem-more"><div class="pitem-more-inner">
+          <p>You shipped it with AI. Now own it. An open-sourced agent skill that walks a product person through a vibe-coded project after the fact &mdash; what it does, how it is put together, and where to look first when something breaks &mdash; so the person who approved it can actually explain it.</p>
+          <div class="chips"><span class="chip">Agent skill design</span><span class="chip">Open source</span></div>
+        </div></div>
+        </a>
+        <div class="dcard-label">AI Tools</div>
+        <a class="dcard pitem" href="projects/checkup-planner.html">
         <div class="pitem-head">
           <span class="pitem-tag">Product</span>
           <span class="pitem-title">Check-up Planner</span>
@@ -305,9 +343,7 @@ const TOWER_TIERS = [
           <div class="chips"><span class="chip">Python</span><span class="chip">OpenCV</span><span class="chip">Streamlit</span></div>
         </div></div>
       </a>
-      <div class="dcard">
-        <p class="dcard-sub">The two below are videos, made with TapNow.</p>
-      </div>
+        <div class="dcard-label">AI Videos</div>
       <a class="dcard pitem" href="https://app.tapnow.ai/home/taptv/5/106488c8-7fba-4d65-aac7-d530c082bccd?order=final_score" target="_blank" rel="noopener">
         <div class="pitem-head">
           <span class="pitem-tag">AI video</span>

@@ -781,6 +781,10 @@ ul.plain { list-style: none; padding: 0; margin: 0; }
 }
 .pitem-more-inner > .chips { margin: 0; padding: 0.8rem 1.4rem 1.2rem; }
 
+/* Grouping within the Data & Code floor's project list reuses the same
+   .dcard-label divider already used on the Skills floor: a small label
+   with a trailing rule, no hover/reveal mechanism. */
+
 @media (prefers-color-scheme: dark) {
   .dcard { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35); }
   .dcard.pitem:hover, .dcard.pitem:focus-visible { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5); }

@@ -63,6 +63,26 @@ const PROJECTS = [
     featured: false,
   },
   {
+    slug: "cdisc-pilot",
+    title: "CDISC Pilot: SDTM to ADaM to TLF",
+    tag: "Practice case",
+    category: "Biostatistics",
+    summary:
+      "The public CDISC pilot study taken through a clinical-trial programmer's full workflow: SDTM into two ADaM datasets, then into two report tables, with every dataset and table rebuilt and checked in R.",
+    href: "projects/cdisc-pilot.html",
+    featured: false,
+  },
+  {
+    slug: "llm-medical-coding",
+    title: "LLM Medical Coding",
+    tag: "Practice case",
+    category: "Biostatistics",
+    summary:
+      "Using an LLM as a zero-shot classifier to sort adverse-event terms into their MedDRA category, with the prompt rewritten after reading the actual mistakes: 83.9% to 86.8%.",
+    href: "projects/llm-medical-coding.html",
+    featured: false,
+  },
+  {
     slug: "pm-system",
     title: "Project Management System",
     tag: "Product",

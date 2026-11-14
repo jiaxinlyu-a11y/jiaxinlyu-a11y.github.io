@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LLM medical coding: classifying adverse events &mdash; Lyu Jiaxin</title>
+  <meta name="description" content="Using an LLM as a zero-shot classifier to sort 242 adverse-event terms from the CDISC pilot study into their MedDRA System Organ Class, with a prompt refined twice from reading the actual errors." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/case.css" />
+  <style>
+    .cs-tbl.err td:first-child { white-space: nowrap; }
+    .cs-tbl.cmp2 td:nth-child(n+2) { white-space: nowrap; }
+  </style>
+</head>
+<body class="case" data-page="projects">
+
+  <header id="site-nav"></header>
+
+  <div class="case-wrap">
+    <main class="case-main">
+<p class="cs-eyebrow">Case study &middot; Medical coding &middot; Python and an LLM API</p>
+<h1>Can an LLM sort adverse events into their medical category?</h1>
+<p class="cs-lead"><b>I used an LLM as a zero-shot classifier to sort 242 adverse-event terms into their MedDRA System Organ Class: 83.9% accuracy with a bare-bones prompt, 86.8% after reading the actual mistakes and rewriting it (+2.9 points).</b> This is a small, honest study of what prompt engineering can and cannot buy you on a coding task.</p>
+
+<section class="cs-sec" id="s1" data-sum="1,191 events, 242 distinct terms, 23 categories"><h2><span class="n">01</span>The task</h2>
+<p class="cs-say">Reusing the adverse-event data from the <a href="cdisc-pilot.html">CDISC pilot case</a>: 1,191 adverse-event records, each with a verbatim term (<code>AETERM</code>, what was typed at the site) and its official classification into one of 23 MedDRA System Organ Classes (<code>AEBODSYS</code>). The task: given only a term, predict which of the 23 categories it belongs to.</p>
+<div class="cs-stats"><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><b>242</b><span>distinct verbatim terms, after removing duplicates across subjects</span></div><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><b>23</b><span>candidate categories (System Organ Classes), shown in full on every call</span></div><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg><b>1 to 292</b><span>terms per category &mdash; badly imbalanced, which matters later</span></div></div>
+<p class="cs-note">No licensed MedDRA dictionary was used. The categories and the correct answers both come from this public dataset's own coding, which is standard for a practice case like this.</p>
+</section>
+
+<section class="cs-sec" id="s2" data-sum="prepare &rarr; classify &rarr; score &rarr; read the errors &rarr; refine"><h2><span class="n">02</span>The pipeline</h2>
+<p class="cs-say">Five small Python scripts, each with one job, run in order from the command line.</p>
+<div class="cs-tbl-w"><table class="cs-tbl steps"><thead><tr><th>Script</th><th>What it does</th></tr></thead><tbody><tr><td>prepare_data</td><td>Build the clean inputs: 242 distinct terms with their true category, and the list of 23 category names</td></tr><tr><td>classify</td><td>For each term, call the LLM with a system prompt listing the 23 categories; save its pick next to the true answer</td></tr><tr><td>evaluate</td><td>Score any one results file: overall accuracy, accuracy per category, and a csv of every wrong case for manual review</td></tr><tr><td>classify_v2</td><td>Same as classify, but the prompt now gives a one-line description of each category, not just its name</td></tr><tr><td>compare</td><td>Put two results files side by side and export the before/after accuracy to Excel</td></tr></tbody></table></div>
+<p class="cs-say">The LLM is DeepSeek's <code>deepseek-chat</code> model, called through an OpenAI-compatible API, at low temperature (0.1) for a stable, repeatable pick. No fine-tuning: the whole task leans on the prompt alone, which is what makes it a fair place to test prompt engineering.</p>
+</section>
+
+<section class="cs-sec" id="s3" data-sum="Bare category names &rarr; 83.9% accuracy"><h2><span class="n">03</span>Baseline: category names alone</h2>
+<p class="cs-say">The first prompt just listed the 23 category names and asked the model to pick one, copied exactly, for each term. No examples, no descriptions &mdash; the simplest version that could work.</p>
+<div class="cs-stats"><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><b>83.9%</b><span>overall accuracy, 203 of 242 terms correctly classified</span></div></div>
+<p class="cs-say">Reasonable for a first pass with zero examples, but a few categories stood out as consistently weak: <code>INVESTIGATIONS</code> (57.9%), <code>INFECTIONS AND INFESTATIONS</code> (61.1%), and <code>GENERAL DISORDERS AND ADMINISTRATION SITE CONDITIONS</code> (73.5%, the single largest category at 34 terms) &mdash; too big and too wrong to blame on small samples alone. That is what made reading the actual mistakes worthwhile rather than guessing at fixes.</p>
+</section>
+
+<section class="cs-sec" id="s4" data-sum="Two repeating mistakes, not random noise"><h2><span class="n">04</span>Reading the errors</h2>
+<p class="cs-say">The evaluate script saves every wrong case &mdash; term, true category, predicted category &mdash; so the mistakes can be read rather than just counted. Two clear, repeating patterns turned up.</p>
+<div class="cs-tbl-w"><table class="cs-tbl err"><thead><tr><th>Term</th><th>True category</th><th>Predicted</th></tr></thead><tbody><tr><td>BIOPSY</td><td>Investigations</td><td>Surgical and medical procedures</td></tr><tr><td>CYSTOSCOPY</td><td>Investigations</td><td>Surgical and medical procedures</td></tr><tr><td>HEART RATE INCREASED</td><td>Investigations</td><td>Cardiac disorders</td></tr><tr><td>CYSTITIS</td><td>Infections and infestations</td><td>Renal and urinary disorders</td></tr><tr><td>CERVICITIS</td><td>Infections and infestations</td><td>Reproductive system and breast disorders</td></tr><tr><td>RHINITIS</td><td>Infections and infestations</td><td>Respiratory, thoracic and mediastinal disorders</td></tr></tbody></table></div>
+<p class="cs-say"><b>Pattern 1: a diagnostic act gets read as a treatment, or as the organ it measures.</b> A biopsy or a cystoscopy is a test, not surgery &mdash; the model routed it to <code>SURGICAL AND MEDICAL PROCEDURES</code> instead of <code>INVESTIGATIONS</code>. A rising or falling measurement (heart rate, body temperature) got filed under the organ it relates to, rather than recognised as a measurement itself.</p>
+<p class="cs-say"><b>Pattern 2: an infection named after the organ it affects gets filed under that organ.</b> <code>CYSTITIS</code>, <code>CERVICITIS</code> and <code>RHINITIS</code> are all infections (the &ldquo;-itis&rdquo; ending), but the model saw &ldquo;bladder&rdquo;, &ldquo;cervix&rdquo; or &ldquo;nose&rdquo; and filed them under that organ's own disorder category instead of <code>INFECTIONS AND INFESTATIONS</code>.</p>
+<p class="cs-say">A few other errors (<code>LETHARGY</code>, <code>LISTLESS</code>, <code>SUDDEN DEATH</code>) didn't fit either pattern &mdash; these looked more like genuinely ambiguous coding choices in the source data than something a better prompt could fix, and were left alone.</p>
+</section>
+
+<section class="cs-sec" id="s5" data-sum="83.9% &rarr; 86.8%"><h2><span class="n">05</span>The fix: one line of context per category</h2>
+<p class="cs-say">v2 adds a plain one-line description to every category in the prompt, not just its name &mdash; and for the three weakest categories, that description names the two error patterns above directly. <code>INVESTIGATIONS</code> now explicitly says it covers &ldquo;a diagnostic test or measurement&hellip; not a treatment&rdquo;; <code>INFECTIONS AND INFESTATIONS</code> now says organ-named infections (&ldquo;-itis&rdquo;) still belong there. Same idea everywhere, sharper wording where the model was actually getting confused.</p>
+<div class="cs-tbl-w"><table class="cs-tbl cmp2"><thead><tr><th>Version</th><th>Prompt</th><th>Accuracy</th><th>Change</th></tr></thead><tbody><tr><td>v1</td><td>Bare category names</td><td>83.9%</td><td>&mdash;</td></tr><tr><td>v2</td><td>+ one-line description per category, sharpened for the categories that were actually wrong</td><td>86.8%</td><td>+2.9 pts</td></tr></tbody></table></div>
+<p class="cs-say">A genuine, if modest, gain &mdash; and one earned by reading the actual mistakes first, not by guessing at what might help.</p>
+</section>
+
+<section class="cs-sec" id="s6" data-sum="Honest ceiling: sample size and ambiguous labels"><h2><span class="n">06</span>What prompt engineering couldn't fix</h2>
+<p class="cs-say">A ~3-point gain from one round of prompt work, not a leap to near-perfect accuracy &mdash; and that ceiling has two real causes, not one. Several categories have only one or two example terms in this dataset; with that few examples, a single right or wrong guess swings the category's accuracy by 50 to 100 points, and no prompt can fix what is really just too little data to judge. Separately, a handful of terms (<code>LETHARGY</code>, <code>SUDDEN DEATH</code>) look like the source data's own coding call could reasonably have gone either way &mdash; a model, or a person, could defend a different category without being wrong.</p>
+<p class="cs-say"><b>Bottom line.</b> Error analysis beats guessing: reading the actual mismatches pointed at two specific, nameable confusions, and fixing those specifically worked better than a generic prompt improvement. But a classifier's ceiling is partly set by the data itself, not just the prompt &mdash; knowing which is which is part of the job.</p>
+<p class="cs-skills-l">Skills shown</p><div class="cs-skills"><span>Python</span><span>pandas</span><span>LLM API integration</span><span>Prompt engineering</span><span>Error analysis</span><span>Zero-shot classification</span></div>
+</section>
+    </main>
+
+    <aside class="case-aside">
+      <div class="case-rail">
+        <div class="cs-card">
+          <p class="cs-label">At a glance</p>
+          <dl class="cs-kv">
+            <dt>Type</dt><dd>Practice case, public data</dd>
+            <dt>Tools</dt><dd>Python &middot; DeepSeek API</dd>
+            <dt>Data</dt><dd>242 terms, 23 categories</dd>
+            <dt>Method</dt><dd>Zero-shot classification</dd>
+          </dl>
+        </div>
+        <div class="cs-card plain cs-toc-card">
+          <p class="cs-label">On this page</p>
+          <ul class="cs-toc" id="toc"><li data-t="s1"><a href="#s1"><span class="n">01</span>The task</a><div class="sum"></div></li><li data-t="s2"><a href="#s2"><span class="n">02</span>The pipeline</a><div class="sum"></div></li><li data-t="s3"><a href="#s3"><span class="n">03</span>Baseline</a><div class="sum"></div></li><li data-t="s4"><a href="#s4"><span class="n">04</span>Reading the errors</a><div class="sum"></div></li><li data-t="s5"><a href="#s5"><span class="n">05</span>The fix</a><div class="sum"></div></li><li data-t="s6"><a href="#s6"><span class="n">06</span>What couldn't be fixed</a><div class="sum"></div></li></ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script>const BASE_PATH = "../";</script>
+  <script src="../js/partials.js"></script>
+  <script>
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll("#toc li"));
+      var secs = items.map(function (li) { return document.getElementById(li.dataset.t); });
+      function update() {
+        var cur = 0, y = window.innerHeight * 0.35;
+        secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= y) cur = i; });
+        items.forEach(function (li, i) {
+          li.classList.toggle("on", i === cur);
+          li.querySelector(".sum").textContent = i === cur ? secs[i].dataset.sum : "";
+        });
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

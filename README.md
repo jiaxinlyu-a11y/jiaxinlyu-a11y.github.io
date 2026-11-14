@@ -10,9 +10,13 @@ A plain HTML/CSS/JS static site. No build step, no framework, no dependencies to
 │   ├── index.html               Full project list (generated from projects-data.js)
 │   ├── keto-cta.html             KETO-CTA case study
 │   ├── survival-sim.html         Survival analysis simulation study
+│   ├── lung-survival.html        Lung cancer survival analysis, R and SAS side by side
+│   ├── bank-marketing.html       Bank marketing logistic regression, R and SAS side by side
 │   ├── checkup-planner.html      Check-up Planner (tool)
 │   ├── ehs-product.html          EHS management product
 │   ├── pm-system.html            Project-management system (product)
+│   ├── ietm.html                 Interactive technical manual system: key points and hard problems (work project)
+│   ├── ietp.html                 Interactive technical manual reader (work project, three pictures)
 │   ├── scatter-plot-digitiser.html   Scatter Plot Digitiser (tool)
 │   ├── job-pilot.html            JobPilot (web app)
 │   └── short-story-expander.html Short Story Expander (tool)
@@ -25,7 +29,7 @@ A plain HTML/CSS/JS static site. No build step, no framework, no dependencies to
 │   ├── pagoda.js                 Draws the tower
 │   ├── projects-data.js          Project card data (title/summary/link)
 │   └── main.js                   Renders project cards from projects-data.js
-├── img/                          Tower graphics
+├── img/                          Tower graphics and the three IETP pictures
 ├── resume.html                   Resume page: lists the four PDF versions (opened by the Resume buttons)
 ├── assets/resume-*.pdf           The six resume PDFs (biostatistician / data analyst / AI product manager, English / Chinese)
 ├── STATUS.md                     Version/change log — add an entry each time you make a real update

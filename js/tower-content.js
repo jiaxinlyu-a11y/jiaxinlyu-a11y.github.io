@@ -188,8 +188,8 @@ const TOWER_TIERS = [
           <span class="pitem-go">Case study &rarr;</span>
         </div>
         <div class="pitem-more"><div class="pitem-more-inner">
-          <p>Benchmarked the market and compared three systems to design a standard EHS product, then adjusted it for one customer.</p>
-          <div class="chips"><span class="chip">Product management</span><span class="chip">Competitive benchmarking</span><span class="chip">Requirements design</span></div>
+          <p>Designed the processes of a standard EHS product after benchmarking the market: plans and records, inspection, training, emergency, equipment, chemicals and waste, with over 100 prototype pages.</p>
+          <div class="chips"><span class="chip">Process design</span><span class="chip">Status rules</span><span class="chip">Prototyping</span></div>
         </div></div>
       </a>
       <a class="dcard pitem" href="projects/pm-system.html">

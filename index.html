@@ -97,6 +97,8 @@
                   <span>MSc thesis. Regression models compared by AIC, then checked with sensitivity analyses and diagnostics.</span></li>
                 <li><a href="projects/survival-sim.html">Survival Analysis Simulation</a>
                   <span>Cox, log-rank and RMST tests compared under four effect patterns (24 scenarios, 1,000 runs each).</span></li>
+                <li><a href="projects/lung-survival.html">Lung Cancer Survival (R and SAS)</a>
+                  <span>The same survival analysis run in R and SAS: Kaplan-Meier, log-rank and Cox, with every result matching across the two programs.</span></li>
                 <li><a href="projects/checkup-planner.html">Check-up Planner</a>
                   <span>Published screening guidelines turned into a tool, each item labelled with its evidence level.</span></li>
               </ul>
@@ -131,6 +133,8 @@
               <ul class="fit-list">
                 <li><a href="projects/keto-cta.html">KETO-CTA Re-Analysis</a>
                   <span>Worked from the released data of a published study and rebuilt a missing variable from a plot.</span></li>
+                <li><a href="projects/bank-marketing.html">Bank Marketing (R and SAS)</a>
+                  <span>Logistic regression on 45,211 phone calls run in R and SAS: odds ratios, a held-out AUC of 0.74 and a target-leakage check.</span></li>
                 <li><a href="projects/scatter-plot-digitiser.html">Scatter Plot Digitiser</a>
                   <span>Python tool that recovers data from a published plot, validated against known values.</span></li>
                 <li>Human Activity Recognition
@@ -524,7 +528,8 @@
           connectorTimer = setTimeout(drawConnector, 480);
         }
 
-        // Products / AI Tools rows expand and collapse on hover (css .pitem),
+        // Project rows on the Work Experience, Data & Code and AI Products floors
+        // expand and collapse on hover (css .pitem),
         // which moves every row below them — so keep redrawing the connector
         // each frame while that transition runs.
         let trackUntil = 0;
@@ -557,7 +562,7 @@
 
         renderTier(0);
 
-        // Deep link used by the "← Home" link on other pages: index.html#products
+        // Deep link used by the "← Home" link on other pages: e.g. index.html#work-experience
         // opens the tower detail straight on that floor (skipping the cover).
         // The earlier load handler forces scrollTo(0, 0), so this one is
         // registered after it and jumps to the tower-detail section.

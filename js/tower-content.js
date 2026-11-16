@@ -256,6 +256,17 @@ const TOWER_TIERS = [
             <div class="chips"><span class="chip">Python</span><span class="chip">LLM API</span><span class="chip">Prompt engineering</span></div>
           </div></div>
         </a>
+        <a class="dcard pitem" href="projects/case8-adr-extraction.html">
+          <div class="pitem-head">
+            <span class="pitem-tag">Practice case</span>
+            <span class="pitem-title">ADR Span Extraction (CADEC)</span>
+            <span class="pitem-go">Case study &rarr;</span>
+          </div>
+          <div class="pitem-more"><div class="pitem-more-inner">
+            <p>One step harder than the case above: having an LLM find the adverse-reaction mentions itself in raw, unedited patient forum text, then map each one to a SNOMED CT term (89.0% found, mapping 64.4% &rarr; 70.5% after a data-driven prompt fix).</p>
+            <div class="chips"><span class="chip">Python</span><span class="chip">LLM API</span><span class="chip">Zero-shot extraction</span></div>
+          </div></div>
+        </a>
         <div class="dcard-label">Practice cases</div>
         <a class="dcard pitem" href="projects/lung-survival.html">
           <div class="pitem-head">

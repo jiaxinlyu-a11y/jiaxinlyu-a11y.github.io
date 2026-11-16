@@ -83,6 +83,16 @@ const PROJECTS = [
     featured: false,
   },
   {
+    slug: "case8-adr-extraction",
+    title: "ADR Span Extraction (CADEC)",
+    tag: "Practice case",
+    category: "Biostatistics",
+    summary:
+      "One step harder than classification: having an LLM find adverse-reaction mentions itself in raw patient text, then map each to a SNOMED CT term. 89.0% found; mapping lifted from 64.4% to 70.5% by reading the real confusion pairs.",
+    href: "projects/case8-adr-extraction.html",
+    featured: false,
+  },
+  {
     slug: "pm-system",
     title: "Project Management System",
     tag: "Product",

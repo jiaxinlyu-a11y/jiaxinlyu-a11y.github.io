@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADR span extraction from raw patient text &mdash; Lyu Jiaxin</title>
+  <meta name="description" content="Having an LLM find its own evidence first: zero-shot extraction of adverse-reaction mentions from unedited patient forum posts, then mapping each one to a SNOMED CT standard term, with a data-driven prompt fix that lifted mapping accuracy by 6.1 points." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/case.css" />
+  <style>
+    .cs-tbl.err td:first-child { white-space: nowrap; }
+    .cs-tbl.cmp2 td:nth-child(n+2) { white-space: nowrap; }
+  </style>
+</head>
+<body class="case" data-page="projects">
+
+  <header id="site-nav"></header>
+
+  <div class="case-wrap">
+    <main class="case-main">
+<p class="cs-eyebrow">Case study &middot; Pharmacovigilance text mining &middot; Python and an LLM API</p>
+<h1>Can an LLM find its own evidence, not just classify it?</h1>
+<p class="cs-lead"><b>Building on the medical-coding case, I asked an LLM to do the harder half of the job: read a patient's own unedited forum post and find the adverse-reaction mentions itself, then map each one to a standard SNOMED CT term.</b> 89.0% of real mentions found (extraction F1 85.4%), 70.5% mapped to the exact right standard term &mdash; up from 64.4% after reading the actual mistakes and rewriting the prompt around them (+6.1 points).</p>
+
+<section class="cs-sec" id="s1" data-sum="1,250 posts, 5,316 ADR mentions, 730 candidate terms"><h2><span class="n">01</span>The task</h2>
+<p class="cs-say">CSIRO's CADEC dataset: 1,250 posts from patient forums about five arthritis/pain drugs, hand-annotated with every adverse-reaction (ADR) mention and its position in the raw text. The earlier case started one step downstream &mdash; already-clean terms, ready to classify. Here the text is real and messy: full sentences, typos, several reactions buried in one paragraph, nothing pre-cut. The model has to find the spans itself before it can map them.</p>
+<div class="cs-stats"><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><b>1,250</b><span>raw forum posts across 11 drugs, none pre-segmented</span></div><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><b>5,316</b><span>hand-annotated ADR mentions to find and map</span></div><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg><b>730</b><span>distinct SNOMED CT standard terms actually present in the data</span></div></div>
+<p class="cs-note">Standardised to SNOMED CT, not MedDRA. MedDRA's own term text is commercially licensed, so CADEC's MedDRA files carry codes with no names attached &mdash; the same restriction that shaped the earlier case. SNOMED CT is open, so its files carry both code and name, making it the only practical target. As before, the candidate list is only the 730 terms this dataset actually uses, never a full external dictionary.</p>
+</section>
+
+<section class="cs-sec" id="s2" data-sum="prepare_data &rarr; classify (extract + map) &rarr; eval_strict"><h2><span class="n">02</span>The pipeline</h2>
+<p class="cs-say">Three Python scripts.</p>
+<div class="cs-tbl-w"><table class="cs-tbl steps"><thead><tr><th>Script</th><th>What it does</th></tr></thead><tbody><tr><td>prepare_data</td><td>Build the ground-truth table: match each human-marked ADR span (by character position) to its SNOMED CT code and name, across all 1,250 posts</td></tr><tr><td>classify</td><td>The core pipeline &mdash; for each raw post, one LLM call finds every ADR span itself and maps each to the closest of the 730 candidate terms, scored against the ground truth with a simple overlap rule</td></tr><tr><td>eval_strict</td><td>Re-scores the same saved results under exact boundary matching instead of overlap &mdash; no extra API calls, just a stricter yardstick on the same data</td></tr></tbody></table></div>
+<p class="cs-say">Same model and setup as the earlier case: DeepSeek's <code>deepseek-chat</code>, low temperature (0.1), JSON output. A span counts as found if the model's guess overlaps the true span's position at all; among found spans, the mapping counts as correct only if the standard term matches exactly.</p>
+</section>
+
+<section class="cs-sec" id="s3" data-sum="89.4% found, but only 64.4% mapped correctly"><h2><span class="n">03</span>Baseline: extraction works, mapping lags</h2>
+<p class="cs-say">First full run, all 1,250 posts, bare-list prompt (candidate terms, no hints).</p>
+<div class="cs-stats"><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><b>89.4%</b><span>of real ADR mentions found (4,753 of 5,316), unprompted &mdash; the new skill vs. the earlier case</span></div><div class="cs-stat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><b>64.4%</b><span>of found spans mapped to the exact right standard term</span></div></div>
+<p class="cs-say">The extraction half &mdash; the genuinely new skill over the earlier case &mdash; was strong from the first try. Mapping, the part that carries over from the earlier case, landed at roughly the same level it started at there too (83.9%, pre-fix) &mdash; worth reading the actual mistakes before touching the prompt.</p>
+</section>
+
+<section class="cs-sec" id="s4" data-sum="1,511 of 1,690 errors were near-synonym pairs, not noise"><h2><span class="n">04</span>Reading the errors</h2>
+<p class="cs-say">1,690 spans were found but mapped wrong. Not all of those are real classifier mistakes: 165 had no standard term in the ground truth to begin with, and 14 were the model correctly declining with "NONE". The remaining 1,511 &mdash; a real wrong pick &mdash; were counted by which two terms kept getting swapped.</p>
+<div class="cs-tbl-w"><table class="cs-tbl err"><thead><tr><th>Gold standard term</th><th>Predicted</th><th>Count</th></tr></thead><tbody><tr><td>Amnesia</td><td>Memory impairment</td><td>63</td></tr><tr><td>Excessive upper gastrointestinal gas</td><td>Flatulence/wind</td><td>55</td></tr><tr><td>Arthralgia</td><td>Joint pain</td><td>47</td></tr><tr><td>Cramp in lower limb</td><td>Cramp in lower leg</td><td>34</td></tr><tr><td>Blurred vision - hazy</td><td>Blurring of visual image</td><td>33</td></tr><tr><td>Asthenia</td><td>Muscle weakness / Extreme exhaustion / Fatigue</td><td>40</td></tr></tbody></table></div>
+<p class="cs-say"><b>Over 89% of real mapping errors were near-synonym confusion, not random noise.</b> SNOMED CT holds a formal medical term and a plain-English equivalent as two separate entries far more often than expected (amnesia/memory impairment, arthralgia/joint pain), and the model consistently reached for the more familiar-sounding sibling rather than the one the human annotators actually picked.</p>
+</section>
+
+<section class="cs-sec" id="s5" data-sum="64.4% &rarr; 70.5%, a +6.1-point gain from the data itself"><h2><span class="n">05</span>The fix: let the data name its own confusions</h2>
+<p class="cs-say">Rather than a generic instruction ("prefer the more specific term"), which turned out to point the wrong way about as often as the right one, the top 16 highest-frequency confusion pairs were written into the prompt directly &mdash; a standing rule of thumb for exactly the pairs the data showed were being swapped, nothing invented.</p>
+<div class="cs-tbl-w"><table class="cs-tbl cmp2"><thead><tr><th>Version</th><th>Prompt</th><th>Mapping accuracy</th><th>Change</th></tr></thead><tbody><tr><td>v1</td><td>Bare candidate list</td><td>64.4%</td><td>&mdash;</td></tr><tr><td>v2</td><td>+ 16 explicit tie-break rules, mined from the actual confusion pairs</td><td>70.5%</td><td>+6.1 pts</td></tr></tbody></table></div>
+<p class="cs-say">Extraction recall (89.0%) and precision (82.0%) held steady, as expected &mdash; only the mapping half of the prompt changed. The gain held up across drugs individually, not just in the pooled total, which is what makes it a real fix rather than a fit to one subgroup.</p>
+</section>
+
+<section class="cs-sec" id="s6" data-sum="One drug is 84% of the data; exact boundaries are harder than overlap"><h2><span class="n">06</span>What this didn't fix</h2>
+<p class="cs-say">Two honest limits, surfaced by checking rather than assuming the headline numbers tell the whole story. First: LIPITOR alone is 877 of the 1,250 posts (84% of all ADR mentions), so the pooled result is mostly a measurement of LIPITOR &mdash; the other ten drugs' individual numbers are each based on too few posts (1&ndash;127) to trust on their own.</p>
+<p class="cs-say">Second: re-scoring the same results under exact boundary matching, instead of "any overlap counts", drops extraction F1 from 84.3% to 61.6%. The model usually lands in the right place but doesn't always cut the span at exactly the same words a human would &mdash; close, not word-for-word. The overlap rule was the right call for this project's scope, but it was worth checking what a stricter yardstick would have said.</p>
+<p class="cs-say"><b>Bottom line.</b> The new skill &mdash; finding evidence in raw text instead of being handed it &mdash; worked well from the first try. The skill that carried over from the earlier case &mdash; picking the right standard term &mdash; improved the same way it did there: by reading the real mistakes, not guessing at a fix, and letting the data name exactly which confusions to correct for.</p>
+<p class="cs-skills-l">Skills shown</p><div class="cs-skills"><span>Python</span><span>LLM API integration</span><span>Zero-shot span extraction</span><span>Prompt engineering</span><span>Error analysis</span><span>Data-driven prompt design</span><span>Terminology mapping</span></div>
+</section>
+    </main>
+
+    <aside class="case-aside">
+      <div class="case-rail">
+        <div class="cs-card">
+          <p class="cs-label">At a glance</p>
+          <dl class="cs-kv">
+            <dt>Type</dt><dd>Practice case, public data</dd>
+            <dt>Tools</dt><dd>Python &middot; DeepSeek API</dd>
+            <dt>Data</dt><dd>1,250 posts, 5,316 ADR mentions</dd>
+            <dt>Method</dt><dd>Zero-shot extraction + mapping</dd>
+          </dl>
+        </div>
+        <div class="cs-card plain cs-toc-card">
+          <p class="cs-label">On this page</p>
+          <ul class="cs-toc" id="toc"><li data-t="s1"><a href="#s1"><span class="n">01</span>The task</a><div class="sum"></div></li><li data-t="s2"><a href="#s2"><span class="n">02</span>The pipeline</a><div class="sum"></div></li><li data-t="s3"><a href="#s3"><span class="n">03</span>Baseline</a><div class="sum"></div></li><li data-t="s4"><a href="#s4"><span class="n">04</span>Reading the errors</a><div class="sum"></div></li><li data-t="s5"><a href="#s5"><span class="n">05</span>The fix</a><div class="sum"></div></li><li data-t="s6"><a href="#s6"><span class="n">06</span>What this didn't fix</a><div class="sum"></div></li></ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script>const BASE_PATH = "../";</script>
+  <script src="../js/partials.js"></script>
+  <script>
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll("#toc li"));
+      var secs = items.map(function (li) { return document.getElementById(li.dataset.t); });
+      function update() {
+        var cur = 0, y = window.innerHeight * 0.35;
+        secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= y) cur = i; });
+        items.forEach(function (li, i) {
+          li.classList.toggle("on", i === cur);
+          li.querySelector(".sum").textContent = i === cur ? secs[i].dataset.sum : "";
+        });
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

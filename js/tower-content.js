@@ -106,10 +106,24 @@ const TOWER_TIERS = [
         </div>
       </div>
       <div class="dcard">
+        <p class="dcard-label">Clinical trial programming</p>
+        <div class="chips chips-flush">
+          <span class="chip">SDTM</span><span class="chip">ADaM</span>
+          <span class="chip">TLF tables</span><span class="chip">Double programming</span>
+        </div>
+      </div>
+      <div class="dcard">
         <p class="dcard-label">Programming</p>
         <div class="chips chips-flush">
           <span class="chip">R</span><span class="chip">Python</span>
           <span class="chip">SQL</span><span class="chip">SAS</span>
+        </div>
+      </div>
+      <div class="dcard">
+        <p class="dcard-label">AI &amp; NLP</p>
+        <div class="chips chips-flush">
+          <span class="chip">LLM evaluation</span><span class="chip">Prompt design</span>
+          <span class="chip">Named-entity extraction</span><span class="chip">Error analysis</span>
         </div>
       </div>
       <div class="dcard">
